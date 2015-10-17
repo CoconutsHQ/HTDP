@@ -1,0 +1,41 @@
+* HTDP 2e
+
+#+BEGIN: clocktable :maxlevel 2 :scope subtree
+#+CAPTION: Clock summary at [2015-10-17 Sat 20:44]
+| Headline                    | Time   |      |
+|-----------------------------+--------+------|
+| *Total time*                | *4:00* |      |
+|-----------------------------+--------+------|
+| HTDP 2e                     | 4:00   |      |
+| \_  Preface and Prologue    |        | 2:30 |
+| \_  Part I: Fixed Size Data |        | 1:30 |
+#+END:
+   
+** Preface and Prologue
+#+BEGIN: clocktable :maxlevel 2 :scope subtree
+#+CAPTION: Clock summary at [2015-10-17 Sat 20:43]
+| Headline                 | Time   |      |
+|--------------------------+--------+------|
+| *Total time*             | *2:30* |      |
+|--------------------------+--------+------|
+| \_  Preface and Prologue |        | 2:30 |
+#+END:
+
+   CLOCK: [2015-10-11 Sun 10:48]--[2015-10-11 Sun 11:18] =>  0:30
+   CLOCK: [2015-10-06 Tue 11:43]--[2015-10-06 Tue 12:13] =>  0:30
+   CLOCK: [2015-10-06 Tue 11:01]--[2015-10-06 Tue 11:31] =>  0:30
+   CLOCK: [2015-10-06 Tue 09:57]--[2015-10-06 Tue 10:27] =>  0:30
+   CLOCK: [2015-10-06 Tue 09:21]--[2015-10-06 Tue 09:51] =>  0:30
+   
+** Part I: Fixed Size Data
+
+*** Chapter 1: Arithmetic
+
+Exercise 1 - 10
+   CLOCK: [2015-10-17 Sat 17:26]--[2015-10-17 Sat 17:56] =>  0:30
+   
+Reading
+   CLOCK: [2015-10-17 Sat 18:06]--[2015-10-17 Sat 18:36] =>  0:30
+   CLOCK: [2015-10-15 Thu 15:48]--[2015-10-15 Thu 16:18] =>  0:30
+   
+*** Chapter 2: Functions
