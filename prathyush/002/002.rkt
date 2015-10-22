@@ -1,6 +1,8 @@
-#lang htdp/bsl
+#lang racket
 
 (define prefix "hello")
 (define suffix "world")
 
-(string-append prefix "_" suffix)
+(define result (string-append prefix "_" suffix))
+
+(provide result)

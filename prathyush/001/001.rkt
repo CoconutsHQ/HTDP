@@ -1,9 +1,11 @@
-#lang htdp/bsl
+#lang racket
 
-;(define x 3)
-(define x 12)
+(define x 3)
+;(define x 5)
 
-;(define y 4)
-(define y 5)
+(define y 4)
+;(define y 12)
 
-(sqrt (+ (* x x) (* y y)))
+(define result (sqrt (+ (* x x) (* y y))))
+
+(provide result)
