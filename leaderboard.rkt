@@ -31,6 +31,8 @@
 (require (prefix-in prn1: "Pranav/001/001.rkt"))
 
 (require (prefix-in sau1: "saurabh/001/001.rkt"))
+;(require (prefix-in sau2: "saurabh/002/002.rkt"))
+(require (prefix-in sau3: "saurabh/003/003.rkt"))
 
 
 (define (test1 result)
@@ -97,22 +99,41 @@
 
  (define saurabh
   (list (list  (test1 sau1:result)
-      ; (test2 ash2:result)
-       ; (test3 ash3:result)
+      ;(test2 sau2:result)
+      ; (test3 sau3:result)
        ; (test4 ash4:result))
         )
   (list)))
+
+(define (space n)
+  (build-string n (lambda (i) #\space)))
 
 
 (define (headers names)
   (for/list ([n names]
              [result (list akash pranav prathyush saurabh)])
-  (string-append n "|" (number->string (marks (first result))) "|"
-                 (number->string (marks (second result)))
-                 "\n")))
+    (let* ([obj-marks (marks (first result))]
+          [sub-marks (marks (second result))]
+          [tot-marks (+ obj-marks sub-marks)]
+          [obj (number->string obj-marks)]
+          [sub (number->string sub-marks)]
+          [tot (number->string tot-marks)]
+          [name-len (string-length n)]
+          [obj-len (string-length obj)]
+          [sub-len (string-length sub)]
+          [tot-len (string-length tot)])
+         
+  (string-append "| " n (space (- 12 name-len)) "|" 
+                 (space (- 10 obj-len))
+                 obj " |" (space (- 11 sub-len))
+                 sub " |"(space (- 6 tot-len))
+                 tot " |"
+                 "\n"))))
 
-(display "--------------------------------\n")
-(display "Leaderboard\n")
-(display "--------------------------------\n")
-(display "| Name | Objective | Subjective |\n")
-(display (apply string-append (headers '("Akash Arun" "Pranav" "Prathyush" "Saurabh"))))
+(display "------------------------------------------------\n")
+(display "| Leaderboard                                  |\n")
+(display "------------------------------------------------\n")
+(display "| Name        | Objective | Subjective | Total |\n")
+(display "| ----------- | --------- | ---------- | ----- |\n")
+(display (apply string-append (headers '("Akash" "Pranav" "Prathyush" "Saurabh"))))
+(display "------------------------------------------------\n")
