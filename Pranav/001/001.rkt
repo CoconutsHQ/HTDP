@@ -7,12 +7,13 @@
 (define x 3)
 (define y 4)
 
-(define (distance-formula x y)
+(define (result x y)
  (sqrt (+ (* x x) (* y y)))
   )
 
-;;Test
-(distance-formula x y)
+
+(provide result)
+
 
 
 
