@@ -29,6 +29,8 @@
 (require (prefix-in ash4: "akasharun/004/004.rkt"))
 
 (require (prefix-in prn1: "Pranav/001/001.rkt"))
+(require (prefix-in prn2: "Pranav/002/002.rkt"))
+(require (prefix-in prn3: "Pranav/003/003.rkt"))
 
 (require (prefix-in sau1: "saurabh/001/001.rkt"))
 ;(require (prefix-in sau2: "saurabh/002/002.rkt"))
@@ -91,8 +93,8 @@
 
  (define pranav
   (list (list  (test1 prn1:result)
-      ; (test2 ash2:result)
-       ; (test3 ash3:result)
+       (test2 prn2:result)
+        (test3 prn3:result)
        ; (test4 ash4:result))
         )
   (list)))
@@ -130,10 +132,32 @@
                  tot " |"
                  "\n"))))
 
-(display "------------------------------------------------\n")
-(display "| Leaderboard                                  |\n")
-(display "------------------------------------------------\n")
-(display "| Name        | Objective | Subjective | Total |\n")
-(display "| ----------- | --------- | ---------- | ----- |\n")
-(display (apply string-append (headers '("Akash" "Pranav" "Prathyush" "Saurabh"))))
-(display "------------------------------------------------\n")
+
+
+(define out (open-output-file "readme.md" #:mode 'text #:exists 'replace))
+
+(display " HTDP Study Group\n" out)
+(display "=================\n\n" out)
+(display "------------------------------------------------\n" out)
+(display " Leaderboard\n" out)
+(display "------------------------------------------------\n" out)
+(display "| Name        | Objective | Subjective | Total |\n" out)
+(display "| ----------- | --------- | ---------- | ----- |\n" out)
+(display (apply string-append (headers '("Akash" "Pranav" "Prathyush" "Saurabh"))) out)
+(display "------------------------------------------------\n" out)
+(close-output-port out)
+(define in (open-input-file "readme.md"))
+(read-line in)
+(read-line in)
+(read-line in)
+(read-line in)
+(read-line in)
+(read-line in)
+(read-line in)
+(read-line in)
+(read-line in)
+(read-line in)
+(read-line in)
+(read-line in)
+(read-line in)
+(close-input-port in)

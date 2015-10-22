@@ -1,9 +1,13 @@
-HTDP Study Group
-=========================
+ HTDP Study Group
+=================
 
-Collaborators:
---------------
-- Akash Arun
-- Pranav Pramod
-- Prathyush Pramod
-- Saurabh Subhash
+------------------------------------------------
+ Leaderboard
+------------------------------------------------
+| Name        | Objective | Subjective | Total |
+| ----------- | --------- | ---------- | ----- |
+| Akash       |         4 |          0 |     4 |
+| Pranav      |         3 |          0 |     3 |
+| Prathyush   |         1 |          0 |     1 |
+| Saurabh     |         1 |          0 |     1 |
+------------------------------------------------
