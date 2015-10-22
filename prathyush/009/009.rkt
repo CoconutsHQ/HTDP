@@ -1,8 +1,12 @@
+#lang racket
+
 (define sunny #true)
 
 (define friday #false)
 
-(or (not sunny) friday)
+(define result (or (not sunny) friday))
+
+(provide result)
 
 ;; 4 combinations
 ;; t f
