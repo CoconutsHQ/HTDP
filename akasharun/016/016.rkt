@@ -9,6 +9,6 @@
 (string-last "hello")
 
 (define result string-last)
-
+(provide result)
 
         
