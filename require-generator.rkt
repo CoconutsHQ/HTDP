@@ -1,5 +1,11 @@
 #lang racket
 
+;; TODOS
+
+;; Map based representation
+;; 2 results for a single question
+;; Latest exercise
+
 (define (name prefix)
   (cond
     [(equal? prefix 'prt) "prathyush"]
