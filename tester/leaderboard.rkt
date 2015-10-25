@@ -1,46 +1,10 @@
 #lang racket
 
+;; TODOS
+;; Sorting of names
+
 (require "requires.rkt")
 
-(define (test1 result)
-  (= result 5))
-
-(define (test2 result)
-  (string=? result "hello_world"))
-
-(define (test3 result)
-  (or (string=? result "_helloworld")
-      (string=? result "h_elloworld")
-      (string=? result "he_lloworld")
-      (string=? result "hel_loworld")
-      (string=? result "hell_oworld")
-      (string=? result "hello_world")
-      (string=? result "hellow_orld")
-      (string=? result "hellowo_rld")
-      (string=? result "hellowor_ld")
-      (string=? result "helloworl_d")
-      (string=? result "helloworld_")))
-
-(define (test4 result)
-  (or (string=? result "elloworld")
-      (string=? result "hlloworld")
-      (string=? result "heloworld")
-      (string=? result "hellworld")
-      (string=? result "helloorld")
-      (string=? result "hellowold")
-      (string=? result "helloword")
-      (string=? result "helloworl")))
-
-(define (test9 result)
-  (equal? result #false))
-
-(define (test11 result)
-  (= result 20))
-
-(define (test13 f)
-  (and (= (f 3 4) 5)
-       (= (f 5 12) 13)))
- 
 (define (marks results)
 (count (lambda (x) (equal? x #true)) results))
 
@@ -49,11 +13,15 @@
   (list)))
 
 (define akash
-  (list (list (test1 ash1) (test2 ash2) (test3 ash3) (test4 ash4))
+  (list (list (test1 ash1)
+              (test2 ash2)
+              (test3 ash3)
+              (test4 ash4)
+              (test9 ash9))
   (list)))
 
  (define pranav
-  (list (list (test1 prn1) (test2 prn2) (test3 prn3) (test4 prn4))  
+  (list (list (test1 prn1) (test2 prn2) (test3 prn3) (test4 prn4) (test9 prn9))  
   (list)))
 
  (define saurabh
@@ -61,7 +29,8 @@
          (test1 sau1)
          (test2 sau2)
          (test3 sau3)
-         (test4 sau4))
+         (test4 sau4)
+         (test9 sau9))
   (list)))
 
 (define (space n)
