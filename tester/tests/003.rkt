@@ -1,6 +1,6 @@
 #lang racket
 
-(define (test3 result)
+(define (test result)
   (or (string=? result "_helloworld")
       (string=? result "h_elloworld")
       (string=? result "he_lloworld")
@@ -13,4 +13,4 @@
       (string=? result "helloworl_d")
       (string=? result "helloworld_")))
 
-(provide test3)
+(provide test)

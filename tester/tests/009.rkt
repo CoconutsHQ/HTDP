@@ -1,6 +1,6 @@
 #lang racket
 
-(define (test9 result)
+(define (test result)
   (equal? result #false))
 
-(provide test9)
+(provide test)

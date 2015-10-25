@@ -4,13 +4,15 @@
 
 ;; This file does all the file/directory reading.
 
-(define members
+(define MEMBERS
   (list "akasharun" "pranav" "prathyush" "saurabh"))
 
 (define (pad n count)
   (if (< (string-length n) count) (pad (string-append "0" n)
                                        count)
       n))
+
+(define (pad3 n) (pad n 3))
 
 (define (get-directory-numbers name)
    (filter number? (map 
@@ -23,6 +25,8 @@
 
 (define (done members)
   (map last-done members))
+
+(define MIN-DONE (apply min (map cdr (done MEMBERS))))
 
 (define (exercise-file author exercise)
   (let ([num (number->string exercise)])
@@ -42,7 +46,6 @@
 (define (expired? rating-file exercise-file)
   (apply < (map file-or-directory-modify-seconds (list rating-file exercise-file))))
 
-
 (define (get-rating author rater exercise)
   (let ([rtg-file (rating-file author rater exercise)]
         [exr-file (exercise-file author exercise)])
@@ -57,9 +60,10 @@
     [else 'unevaluated])))
 
 ;(namespace-variable-value 'x #t (lambda () "this"
-       
-  
  
 (provide done)
-(provide pad)
-(provide members)
+(provide pad3)
+(provide MEMBERS)
+(provide MIN-DONE)
+(provide get-rating)
+(provide exercise-file)

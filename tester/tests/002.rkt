@@ -1,6 +1,6 @@
 #lang racket
 
-(define (test2 result)
+(define (test result)
   (string=? result "hello_world"))
 
-(provide test2)
+(provide test)

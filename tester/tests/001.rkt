@@ -1,6 +1,6 @@
 #lang racket
 
-(define (test1 result)
+(define (test result)
   (= result 5))
 
-(provide test1)
+(provide test)
