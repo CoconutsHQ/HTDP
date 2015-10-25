@@ -1,18 +1,13 @@
 #lang racket
 
-;; TODOS
+(require "status.rkt")
 
-;; Map based representation
-;; 2 results for a single question
-;; Latest exercise
+(define PERSONS members)
 
-(define (name prefix)
-  (cond
-    [(equal? prefix 'prt) "prathyush"]
-    [(equal? prefix 'ash) "akasharun"]
-    [(equal? prefix 'sau) "saurabh"]
-    [(equal? prefix 'prn) "Pranav"]
-  (else "unknown")))
+(define EXERCISES-DONE (status (map cdr members)))
+
+
+
 
 (define (pad n count)
   (if (< (string-length n) count) (pad (string-append "0" n)
@@ -28,7 +23,7 @@
 
 (define (require-generator prefix amount)
   (wrap-require
-   (apply string-append (let ([user (name prefix)])
+   (apply string-append (let ([user (dict-ref PERSONS prefix)])
   (map (lambda [n]
          (let* ([num (number->string n)]
                 [num-str (pad num 3)])
@@ -44,20 +39,17 @@
            (if (ignore n) ""
          (string-append "(define " name " " name ":result)\n"
                         "(provide " name ")\n")))) (range 1 (+ amount 1)))))
-                        
-                 
-(define finish-count (min 19 5 22 17))
+
+(define MIN-DONE (apply min (map cdr EXERCISES-DONE)))
 
 (define (all-requires)
- (apply string-append (map (lambda (n) (require-generator n finish-count))
+ (apply string-append (map (lambda (n) (require-generator n MIN-DONE))
      (list 'ash 'prn 'prt 'sau))))
 
 (define (all-provides)
-  (apply string-append (map (lambda (n) (provide-generator n finish-count))
+  (apply string-append (map (lambda (n) (provide-generator n MIN-DONE))
                             (list 'ash 'prn 'prt 'sau))))
-  
-  
- 
+
 (define (export)
   (let ([out (open-output-file "requires.rkt" #:mode 'text #:exists 'replace)])
     (display "#lang racket\n\n" out)
