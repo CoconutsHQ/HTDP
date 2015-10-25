@@ -18,7 +18,7 @@
   (string-append "(require " st ")\n"))
 
 (define (ignore n)
-  (if (member n (list 5 6 7 9 10)) #true
+  (if (member n (list 5 6 7 8 10)) #true
       #false))
 
 (define (require-generator prefix amount)
@@ -50,9 +50,9 @@
   (apply string-append (map (lambda (n) (provide-generator n MIN-DONE))
                             (list 'ash 'prn 'prt 'sau))))
 
-(define (export)
+(define (gen export?)
   (let ([out (open-output-file "requires.rkt" #:mode 'text #:exists 'replace)])
-    (display "#lang racket\n\n" out)
-(display (all-requires) out)
-(display (all-provides) out)
+(if export? (display "#lang racket\n\n" out) (display "#lang racket\n\n"))
+(if export? (display (all-requires) out) (display (all-requires)))
+(if export? (display (all-provides) out) (display (all-provides)))
 (close-output-port out)))
