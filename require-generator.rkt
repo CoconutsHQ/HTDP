@@ -31,13 +31,30 @@
                         "\"" user "/" num-str "/" num-str ".rkt\")\n")))
        (range 1 (+ amount 1)))))))
 
-(define finish-count (min 5 5 6))
+(define (provide-generator prefix amount)
+  (apply string-append (map (lambda (n)
+         (let ([name (string-append (symbol->string prefix)
+                                   (number->string n))])
+           (if (ignore n) ""
+         (string-append "(define " name " " name ":result)\n"
+                        "(provide " name ")\n")))) (range 1 (+ amount 1)))))
+                        
+                 
+(define finish-count (min 19 5 22 17))
 
 (define (all-requires)
  (apply string-append (map (lambda (n) (require-generator n finish-count))
      (list 'ash 'prn 'prt 'sau))))
+
+(define (all-provides)
+  (apply string-append (map (lambda (n) (provide-generator n finish-count))
+                            (list 'ash 'prn 'prt 'sau))))
+  
+  
  
 (define (export)
   (let ([out (open-output-file "requires.rkt" #:mode 'text #:exists 'replace)])
+    (display "#lang racket\n\n" out)
 (display (all-requires) out)
+(display (all-provides) out)
 (close-output-port out)))

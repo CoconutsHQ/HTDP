@@ -49,28 +49,19 @@
   (list)))
 
 (define akash
-  (list (list (test1 ash1:result)
-        (test2 ash2:result)
-        (test3 ash3:result)
-        (test4 ash4:result)
-        (test9 ash9:result)
-        )
+  (list (list (test1 ash1) (test2 ash2) (test3 ash3) (test4 ash4) (test9 ash9))
   (list)))
 
  (define pranav
-  (list (list  (test1 prn1:result)
-       (test2 prn2:result)
-        (test3 prn3:result)
-       ; (test4 ash4:result))
-        )
+  (list (list (test prn1) (test prn2) (test prn3) (test prn4))  
   (list)))
 
  (define saurabh
-  (list (list  (test1 sau1:result)
-      ;(test2 sau2:result)
-      ; (test3 sau3:result)
-       ; (test4 ash4:result))
-        )
+  (list (list
+         (test sau1)
+         (test sau2)
+         (test sau3)
+         (test sau4))
   (list)))
 
 (define (space n)
