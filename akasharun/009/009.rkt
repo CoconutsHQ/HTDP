@@ -1,6 +1,6 @@
 #lang racket
 
-(define sunny #false)
+(define sunny #true)
 (define friday #false)
 
 (define result (or (not sunny) friday))

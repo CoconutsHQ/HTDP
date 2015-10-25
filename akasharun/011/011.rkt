@@ -1,10 +1,9 @@
-;; The first three lines of this file were inserted by DrRacket. They record metadata
-;; about the language level of this file in a form that our tools can easily process.
-#reader(lib "htdp-beginner-reader.ss" "lang")((modname |011|) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
+#lang racket
+
 (require 2htdp/image)
 (define in "hello")
 
-(if (string? in)
+(define result (if (string? in)
     (string-length in)
     (if (image? in)
         (* (image-height in) (image-width in))
@@ -14,8 +13,9 @@
                 (- in 1))
             (if (boolean=? in #true) 
                    10
-                   20))))
-
+                   20)))))
+(provide result)
+ 
 
             
          
