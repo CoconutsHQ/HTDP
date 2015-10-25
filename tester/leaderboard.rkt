@@ -5,6 +5,11 @@
 
 (require "requires.rkt")
 
+(define MEMBERS
+  (list "akasharun" "pranav" "prathyush" "saurabh"))
+
+(define MIN-DONE (apply min (map cdr (done MEMBERS))))
+
 (define (marks results)
 (count (lambda (x) (equal? x #true)) results))
 
@@ -58,8 +63,22 @@
                  tot " |"
                  "\n"))))
 
+;; A person's mark for each exercise is:
+;; Objective + Subjective + Rating for Others
+;; Objective will be 10 marks per test.
+;; Subjective will be 10 marks overall:
+;; Clarity (Variables, Comments) : 4
+;; Simplicity : 2
+;; Cleverness : 2
+;; Feel : 2
+;; Ratings will be granted 5/headcount marks
 
-
+(h1 "HTDP Study Group")
+(h2 "Leaderboard")
+(table (list "Name" "Done" "Objective" "Subjective" "Total")
+       (list (list "Akash" 3 4 5)
+       (list "Pranav" 2 4 5
+       
 
 (define (report)
 (display " HTDP Study Group\n")

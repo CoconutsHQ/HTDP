@@ -1,18 +1,8 @@
 #lang racket
 
-(require racket/contract)
+(require "utils.rkt")
 
 ;; This file does all the file/directory reading.
-
-(define MEMBERS
-  (list "akasharun" "pranav" "prathyush" "saurabh"))
-
-(define (pad n count)
-  (if (< (string-length n) count) (pad (string-append "0" n)
-                                       count)
-      n))
-
-(define (pad3 n) (pad n 3))
 
 (define (get-directory-numbers name)
    (filter number? (map 
@@ -25,16 +15,6 @@
 
 (define (done members)
   (map last-done members))
-
-(define MIN-DONE (apply min (map cdr (done MEMBERS))))
-
-(define (exercise-file author exercise)
-  (let ([num (number->string exercise)])
-  (string-append "../" author "/" (pad num 3) "/" (pad num 3) ".rkt")))
-
-(define (rating-file author rater exercise)
-  (let* ([full-number (pad (number->string exercise) 3)])
-         (string-append "../" author "/" full-number "/" rater ".rkt")))
 
 ;; File exists
 ;; File created earlier
@@ -62,8 +42,4 @@
 ;(namespace-variable-value 'x #t (lambda () "this"
  
 (provide done)
-(provide pad3)
-(provide MEMBERS)
-(provide MIN-DONE)
 (provide get-rating)
-(provide exercise-file)
