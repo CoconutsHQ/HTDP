@@ -1,41 +1,6 @@
 #lang racket
 
-(require (prefix-in prt1: "prathyush/001/001.rkt"))
-(require (prefix-in prt2: "prathyush/002/002.rkt"))
-(require (prefix-in prt3: "prathyush/003/003.rkt"))
-(require (prefix-in prt4: "prathyush/004/004.rkt"))
-;(require (prefix-in p5: "prathyush/005/005.rkt"))
-;(require (prefix-in p6: "prathyush/006/006.rkt"))
-;(require (prefix-in p7: "prathyush/007/007.rkt"))
-;(require (prefix-in p8: "prathyush/008/008.rkt"))
-(require (prefix-in prt9: "prathyush/009/009.rkt"))
-;(require (prefix-in p10: "prathyush/010/010.rkt"))
-(require (prefix-in prt11: "prathyush/011/011.rkt"))
-;(require (prefix-in p12: "prathyush/012/012.rkt"))
-(require (prefix-in prt13: "prathyush/013/013.rkt"))
-;(require (prefix-in p14: "prathyush/014/014.rkt"))
-;(require (prefix-in p15: "prathyush/015/015.rkt"))
-;(require (prefix-in p16: "prathyush/016/016.rkt"))
-;(require (prefix-in p17: "prathyush/017/017.rkt"))
-;(require (prefix-in p18: "prathyush/018/018.rkt"))
-;(require (prefix-in p19: "prathyush/019/019.rkt"))
-;(require (prefix-in p20: "prathyush/020/020.rkt"))
-;(require (prefix-in p21: "prathyush/020/021.rkt"))
-;(require (prefix-in p22: "prathyush/022/022.rkt"))
-
-(require (prefix-in ash1: "akasharun/001/001.rkt"))
-(require (prefix-in ash2: "akasharun/002/002.rkt"))
-(require (prefix-in ash3: "akasharun/003/003.rkt"))
-(require (prefix-in ash4: "akasharun/004/004.rkt"))
-
-(require (prefix-in prn1: "Pranav/001/001.rkt"))
-(require (prefix-in prn2: "Pranav/002/002.rkt"))
-(require (prefix-in prn3: "Pranav/003/003.rkt"))
-
-(require (prefix-in sau1: "saurabh/001/001.rkt"))
-;(require (prefix-in sau2: "saurabh/002/002.rkt"))
-(require (prefix-in sau3: "saurabh/003/003.rkt"))
-
+(require "requires.rkt")
 
 (define (test1 result)
   (= result 5))
@@ -84,27 +49,19 @@
   (list)))
 
 (define akash
-  (list (list (test1 ash1:result)
-        (test2 ash2:result)
-        (test3 ash3:result)
-        (test4 ash4:result)
-        )
+  (list (list (test1 ash1) (test2 ash2) (test3 ash3) (test4 ash4))
   (list)))
 
  (define pranav
-  (list (list  (test1 prn1:result)
-       (test2 prn2:result)
-        (test3 prn3:result)
-       ; (test4 ash4:result))
-        )
+  (list (list (test1 prn1) (test2 prn2) (test3 prn3) (test4 prn4))  
   (list)))
 
  (define saurabh
-  (list (list  (test1 sau1:result)
-      ;(test2 sau2:result)
-      ; (test3 sau3:result)
-       ; (test4 ash4:result))
-        )
+  (list (list
+         (test1 sau1)
+         (test2 sau2)
+         (test3 sau3)
+         (test4 sau4))
   (list)))
 
 (define (space n)
@@ -133,7 +90,7 @@
                  "\n"))))
 
 
-(define out (open-output-file "readme.md" #:mode 'text #:exists 'replace))
+
 
 (define (report)
 (display " HTDP Study Group\n")
@@ -146,6 +103,7 @@
 (display "------------------------------------------------\n"))
 
 (define (export)
+  (let ([out (open-output-file "readme.md" #:mode 'text #:exists 'replace)])
 (display " HTDP Study Group\n" out)
 (display "=================\n\n" out)
 (display " Leaderboard\n" out)
@@ -154,6 +112,6 @@
 (display "| ----------- | --------- | ---------- | ----- |\n" out)
 (display (apply string-append (headers '("Akash" "Pranav" "Prathyush" "Saurabh"))) out)
 (display "------------------------------------------------\n" out)
-(close-output-port out))
+(close-output-port out)))
 
 (report)
