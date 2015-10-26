@@ -2,7 +2,7 @@
 
 (define (distance-point x y)
   (sqrt (+ (sqr x) (sqr y))))
-(define result distance-point)
+(define result (list distance-point))
 
 (provide result)
 

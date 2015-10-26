@@ -4,5 +4,5 @@
 (define (image-area image)
   (* (image-height image) (image-width image)))
 
-(define result image-area)
+(define result (list image-area))
 (provide result)

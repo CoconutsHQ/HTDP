@@ -8,7 +8,7 @@
         "tall"
         "square")))
 
-(define result image-classify)
+(define result (list image-classify))
 (provide result)
   
 

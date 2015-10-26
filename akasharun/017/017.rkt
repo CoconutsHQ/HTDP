@@ -4,5 +4,5 @@
   (or (not sunny) friday))
 (bool-imply #false #true)
 
-(define result bool-imply)
+(define result (list bool-imply))
 (provide result)

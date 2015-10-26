@@ -4,5 +4,5 @@
   (string-ith string 0))
 
 (string-first "hello")
-(define result string-first)
+(define result (list string-first))
 (provide result)

@@ -5,7 +5,7 @@
 
 (string-last "hello")
 
-(define result string-last)
+(define result (list string-last))
 (provide result)
 
         
