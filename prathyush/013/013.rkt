@@ -10,4 +10,5 @@
 (distance 12 5)
 ;; => 13
 
-(provide distance)
+(define result (list distance))
+(provide result)

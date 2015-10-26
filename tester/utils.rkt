@@ -48,6 +48,7 @@
 
 (define (str item)
   (cond [(number? item) (number->string item)]
+        [(symbol=? item '-) "-"]
                       [else item]))
 
 (define (display-row r widths)

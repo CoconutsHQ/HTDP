@@ -6,6 +6,6 @@
 (define y 4)
 ;(define y 12)
 
-(define result (sqrt (+ (* x x) (* y y))))
+(define result (list (sqrt (+ (* x x) (* y y)))))
 
 (provide result)

@@ -1,6 +1,6 @@
 #lang racket
 
-(define (test result)
+(define (test1 result)
   (or (string=? result "_helloworld")
       (string=? result "h_elloworld")
       (string=? result "he_lloworld")
@@ -12,5 +12,7 @@
       (string=? result "hellowor_ld")
       (string=? result "helloworl_d")
       (string=? result "helloworld_")))
+
+(define test (list test1))
 
 (provide test)

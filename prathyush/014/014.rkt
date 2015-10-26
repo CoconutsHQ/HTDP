@@ -1,3 +1,5 @@
+#lang racket
+
 (define (cube-volume x)
   (* x x x))
 
@@ -6,3 +8,7 @@
 
 (cube-surface 3)
 (cube-volume 3)
+
+(define result (list cube-volume cube-surface))
+
+(provide result)
