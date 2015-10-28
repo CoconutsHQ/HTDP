@@ -1,7 +1,7 @@
 #lang racket
 
 (require 2htdp/image)
-(define in "hello")
+(define in #false)
 
 (define result (list (if (string? in)
     (string-length in)
