@@ -3,7 +3,7 @@
 (require "utils.rkt")
 (require "subjective.rkt")
 
-(define IGNORES (list 5 6 7 8 10 12))
+(define IGNORES (list 5 6 7 8 10 12 23 24 25 26 28 29))
 
 (define MEMBERS
   (list "akasharun" "pranav" "prathyush" "saurabh"))
@@ -11,7 +11,7 @@
 (define MIN-DONE (apply min (map cdr (done MEMBERS))))
 
 (define (testable)
-  (filter (lambda (i) (not (member i IGNORES))) (range 1 15)))
+  (filter (lambda (i) (not (member i IGNORES))) (range 1 MIN-DONE)))
 
 (define (test-location exercise)
   (string-append "tests/" (pad3 (number->string exercise)) ".rkt"))
@@ -28,12 +28,20 @@
     (map (lambda (t r)
            (t r)) tests results)))
 
-;; Multiple tests on single file integration
-(map (lambda (tests)
-       (list (length (filter (lambda (i) (eq? i true)) tests)) (length tests))) (map (lambda (i) (test "prathyush" i)) (testable)))
+(define (tests author)
+  (map (lambda (i) (test author i)) (testable)))
 
+(define (headers tests)
+    (let ([most-tests (apply max (map length tests))])
+    (append (list (hgroup "Q." 4 'left))
+          (map (lambda (i) (hgroup (string-append "Test " (number->string i)) 6 'right)) (range 1 (add1 most-tests))))))
+
+(define (mark-rows tests)
+(map (lambda (idx test) (let ([len (length test)])
+                                (append (list idx) (map (lambda (i) (if i (/ 10 len) 0)) test)))) (range 1 (add1 (length tests)))
+                                                                                                  tests))
+(define (build-table author)
+  (let ((all (tests author)))
 (display
-(table (list (hgroup "Exercise#" 10 'left)
-             (hgroup "Test1" 5 'left)
-             (hgroup "Test2" 5 'left)
-             (hgroup "Total" 5 'left)) '((1 1 - 10) (2 1 - 10))))
+ author "\n"
+(table (headers all) (mark-rows all)))))

@@ -28,7 +28,6 @@
    CLOCK: [2015-10-06 Tue 09:21]--[2015-10-06 Tue 09:51] =>  0:30
    
 ** Part I: Fixed Size Data
-
 *** Chapter 1: Arithmetic
 
 Exercise 1 - 10
@@ -39,3 +38,7 @@ Reading
    CLOCK: [2015-10-15 Thu 15:48]--[2015-10-15 Thu 16:18] =>  0:30
    
 *** Chapter 2: Functions
+    CLOCK: [2015-10-29 Thu 01:37]
+    CLOCK: [2015-10-29 Thu 00:50]--[2015-10-29 Thu 01:15] =>  0:25
+
+

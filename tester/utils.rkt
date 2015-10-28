@@ -18,9 +18,9 @@
 (define (vdiv c)
   (build-string c (lambda (i) #\-)))
 
-(define ROW-START "| ")
-(define ROW-END " |")
-(define HDIV " | ")
+(define ROW-START "|")
+(define ROW-END "|")
+(define HDIV "|")
 
 (define (space n)
   (build-string n (lambda (i) #\space)))
@@ -41,10 +41,14 @@
          (let* ([title-len (string-length title)])
          (string-append title (space (- total-width title-len))))) headers widths)))
 
-(define (display-vertical-divs headers widths)
+(define (align st a)
+  (if (symbol=? a 'left) (string-append ":" st)
+      (string-append st ":")))
+
+(define (header-div headers widths aligns)
   (build-row
-   (map (lambda (item total-width)
-            (build-string total-width (lambda (i) #\-))) headers widths)))
+   (map (lambda (item total-width al)
+            (align (build-string total-width (lambda (i) #\-)) al)) headers widths aligns)))
 
 (define (str item)
   (cond [(number? item) (number->string item)]
@@ -64,7 +68,7 @@
          (widths (collect-row 'width headers))
          (aligns (collect-row 'align headers)))
   (string-join (list (display-headers titles widths)
-                     (display-vertical-divs titles widths)
+                     (header-div titles widths aligns)
                      (string-join (map (lambda (r) (display-row r widths)) rows) "\n"))
                "\n")))
 
