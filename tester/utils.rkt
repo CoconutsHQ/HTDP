@@ -48,11 +48,10 @@
 (define (header-div headers widths aligns)
   (build-row
    (map (lambda (item total-width al)
-            (align (build-string total-width (lambda (i) #\-)) al)) headers widths aligns)))
+            (align (build-string (sub1 total-width) (lambda (i) #\-)) al)) headers widths aligns)))
 
 (define (str item)
   (cond [(number? item) (number->string item)]
-        [(symbol=? item '-) "-"]
                       [else item]))
 
 (define (display-row r widths)

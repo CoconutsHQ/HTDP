@@ -10,8 +10,8 @@
 
 (define MIN-DONE (apply min (map cdr (done MEMBERS))))
 
-(define (testable)
-  (filter (lambda (i) (not (member i IGNORES))) (range 1 MIN-DONE)))
+(define (testable author)
+  (filter (lambda (i) (not (member i IGNORES))) (range 1 15)))
 
 (define (test-location exercise)
   (string-append "tests/" (pad3 (number->string exercise)) ".rkt"))
@@ -29,16 +29,23 @@
            (t r)) tests results)))
 
 (define (tests author)
-  (map (lambda (i) (test author i)) (testable)))
+  (map (lambda (i) (test author i)) (testable author)))
 
 (define (headers tests)
     (let ([most-tests (apply max (map length tests))])
     (append (list (hgroup "Q." 4 'left))
           (map (lambda (i) (hgroup (string-append "Test " (number->string i)) 6 'right)) (range 1 (add1 most-tests))))))
 
+(define (mark-converter i len)
+  (cond
+    ((equal? i '-) "-")
+    (i (/ 10 len))
+    (else 0)))
+  
 (define (mark-rows tests)
 (map (lambda (idx test) (let ([len (length test)])
-                                (append (list idx) (map (lambda (i) (if i (/ 10 len) 0)) test)))) (range 1 (add1 (length tests)))
+                                (append (list idx) (map (lambda (i)
+                                                          (mark-converter i len)) test)))) (range 1 (add1 (length tests)))
                                                                                                   tests))
 (define (build-table author)
   (let ((all (tests author)))

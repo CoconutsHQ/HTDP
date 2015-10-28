@@ -5,7 +5,6 @@
 (define (cube-surface a)
   (* 6 (sqr a)))
 
-(define result1 cube-volume)
-(define result2 cube-surface)
+(define result (list cube-volume cube-surface))
 
-(provide (list result1 result2))
+(provide result)
