@@ -8,5 +8,4 @@
 (define result1 cube-volume)
 (define result2 cube-surface)
 
-(list result1 result2)
-(provide list)
+(provide (list result1 result2))
