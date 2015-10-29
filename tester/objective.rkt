@@ -14,6 +14,12 @@
         (cons "prathyush" "Prathyush Pramod")
         (cons "saurabh" "Saurabh Subhash")))
 
+(define FIRST-NAMES
+  (list (cons "akasharun" "Akash")
+        (cons "pranav" "Pranav")
+        (cons "prathyush" "Prathyush")
+        (cons "saurabh" "Saurabh")))
+
 (define MIN-DONE (apply min (map cdr (done MEMBERS))))
 
 (define (testable author till)
@@ -55,46 +61,59 @@
 (define (uniformize tests count)
     (map (lambda (i) (fill-tests i count)) tests))
     
-
-(define (headers test-count)
+(define (test-header test-count widths)
     (append (list (hgroup "Q." 4 'left))
-          (map (lambda (i) (hgroup (string-append "Test " (number->string i)) 6 'right)) (range 1 (add1 test-count)))))
+          (map (lambda (i width)
+                 (hgroup (string-append "Test " (number->string i)) width 'right)) (range 1 (add1 test-count)) widths)))
 
-(define (mark-converter results len)
+(define (users-header tests)
+  (append (list (hgroup "Q." 4 'left))
+          (map (lambda (i) (hgroup i (string-length i) 'right)) (map (lambda (i) (dict-ref FIRST-NAMES i)) MEMBERS))))
+
+(define (test-marks tests)
+  (let ((len (length tests)))
   (map (lambda (t)
   (cond
     ((equal? #true t) (/ 10 len))
     ((equal? 'undone t) ":interrobang:")
-    (else 0))) results))
+    (else 0))) tests)))
   
 (define (mark-rows tests)
-(map (lambda (result) (let* (
-                           [len (length result)])
-                      (mark-converter result len))) tests))
+(map test-marks tests))
 
 (define (zip k v)
   (map (lambda (k v) (cons k v)) k v))
+
+(define (determine-row-width i)
+    (cond
+      ((number? i) 6)
+      ((string? i) (string-length i))
+      (else 0)))
 
 (define (build-table author)
   (let* ((all (tests-with-index author))
          (indices (map first all))
          (results (mark-rows (map rest all)))
          (mx (apply max (map length results)))
-         (uniform (uniformize results mx)))
-(table (headers mx) (zip indices uniform))))
+         (uniform (uniformize results mx))
+         (widths (map (lambda (marks) (map determine-row-width marks)) uniform))
+         (max-widths (apply map max widths)))
+(table (test-header mx max-widths) (zip indices uniform))))
 
-(define (report author)
+(define (report-user author)
   (display
    (string-append
     (dict-ref MEMBER-NAMES author) "\n"
     (build-table author))))
 
-
-(define (export author)
+(define (export-user author)
   (let ((out (open-output-file (string-append "../" author "/objective.md") #:mode 'text #:exists 'replace)))
   (display
    (string-append
     (h1 (string-append (dict-ref MEMBER-NAMES author) " (Objective)")) "\n"
     (build-table author)) out)
     (close-output-port out)))
-        
+
+(define (report)
+  (display
+   (table (users-header 3) '())))
