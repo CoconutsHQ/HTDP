@@ -1,5 +1,9 @@
 Pranav Pramod (Objective)
 =========================
+Legend
+------
+:interrobang: -> Exercise file doesn't exist.
+
 |Q.  |Test 1       |
 |:---|------------:|
 |1   |10           |

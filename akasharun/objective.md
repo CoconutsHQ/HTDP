@@ -1,5 +1,9 @@
 Akash Arun (Objective)
 ======================
+Legend
+------
+:interrobang: -> Exercise file doesn't exist.
+
 |Q.  |Test 1       |Test 2|
 |:---|------------:|-----:|
 |1   |10           |-     |

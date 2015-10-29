@@ -21,8 +21,9 @@
         (cons "saurabh" "Saurabh")))
 
 (define MIN-DONE (apply min (map cdr (done MEMBERS))))
+(define MAX-DONE (apply max (map cdr (done MEMBERS))))
 
-(define (testable author till)
+(define (testable till)
   (filter (lambda (i) (not (member i IGNORES))) (range 1 till)))
 
 (define (all-done author)
@@ -42,13 +43,16 @@
   (if (file-exists? file-to-load) (dynamic-require file-to-load 'result)
       'non-existent-file)))
 
-(define (idx+test author exercise)
+(define (test author exercise)
   (let ([tests (import-test exercise)]
         [results (load-result author exercise)])
     (if (equal? results 'non-existent-file)
-        (cons exercise (list 'undone))
-    (cons exercise (map (lambda (t r)
-           (t r)) tests results)))))
+        (list 'undone)
+    (map (lambda (t r)
+           (t r)) tests results))))
+
+(define (idx+test author exercise)
+  (cons exercise (test author exercise)))
 
 (define (tests-with-index author)
   (map (lambda (i) (idx+test author i)) (all-done author)))
@@ -67,7 +71,7 @@
                  (hgroup (string-append "Test " (number->string i)) width 'right)) (range 1 (add1 test-count)) widths)))
 
 (define (users-header tests)
-  (append (list (hgroup "Q." 4 'left))
+  (append (list (hgroup "Q." 10 'left))
           (map (lambda (i) (hgroup i (string-length i) 'right)) (map (lambda (i) (dict-ref FIRST-NAMES i)) MEMBERS))))
 
 (define (test-marks tests)
@@ -100,20 +104,48 @@
          (max-widths (apply map max widths)))
 (table (test-header mx max-widths) (zip indices uniform))))
 
+
+(define (per-user author)
+  (string-append
+    (dict-ref MEMBER-NAMES author) "\n"
+    (build-table author)))
+
 (define (report-user author)
   (display
-   (string-append
-    (dict-ref MEMBER-NAMES author) "\n"
-    (build-table author))))
+   (per-user author)))
 
 (define (export-user author)
-  (let ((out (open-output-file (string-append "../" author "/objective.md") #:mode 'text #:exists 'replace)))
-  (display
-   (string-append
-    (h1 (string-append (dict-ref MEMBER-NAMES author) " (Objective)")) "\n"
-    (build-table author)) out)
-    (close-output-port out)))
+  (write! (string-append "../" author "/objective.md")
+    (per-user author)))
 
-(define (report)
-  (display
-   (table (users-header 3) '())))
+(define (total-marks member exercise)
+  (apply + (test-marks (filter boolean? (test member exercise)))))
+
+(define (user-marks exercise)
+  (map (lambda (i) (total-marks i exercise))
+       MEMBERS))
+
+(define (exercise+user-marks exercise)
+  (cons exercise (user-marks exercise)))
+
+(define (all-user-marks+total till)
+  (let ([all (map exercise+user-marks (testable (add1 till)))])
+    (append all (list (append (list "Total") (apply map + (map user-marks (testable (add1 till)))))))))
+
+(define (overall till)
+(string-join
+   (list (h1 "Objective Marks")
+   (table (users-header 3)
+          (all-user-marks+total till))) "\n"))
+
+(define (report till)
+  (display (overall till)))
+
+(define (export till)
+  (write! "../objective.md"
+   (overall till)))
+
+(define (write! file input)
+  (let ((out (open-output-file file #:mode 'text #:exists 'replace)))
+    (display input out)
+    (close-output-port out)))
