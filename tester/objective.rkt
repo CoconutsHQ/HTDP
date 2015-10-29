@@ -3,7 +3,7 @@
 (require "utils.rkt")
 (require "subjective.rkt")
 
-(define IGNORES (list 5 6 7 8 10 12 23 24 25 26 28 29))
+(define IGNORES (list 5 6 7 8 10 12 18 19 23 24 25 26 28 29))
 
 (define MEMBERS
   (list "akasharun" "pranav" "prathyush" "saurabh"))
@@ -16,8 +16,14 @@
 
 (define MIN-DONE (apply min (map cdr (done MEMBERS))))
 
-(define (testable author)
-  (filter (lambda (i) (not (member i IGNORES))) (range 1 15)))
+(define (testable author till)
+  (filter (lambda (i) (not (member i IGNORES))) (range 1 till)))
+
+(define (all-done author)
+  (testable author (dict-ref (done MEMBERS) author)))
+
+(define (min-done author)
+  (testable author MIN-DONE))
 
 (define (test-location exercise)
   (string-append "tests/" (pad3 (number->string exercise)) ".rkt"))
@@ -35,7 +41,7 @@
            (t r)) tests results))))
 
 (define (tests-with-index author)
-  (map (lambda (i) (idx+test author i)) (testable author)))
+  (map (lambda (i) (idx+test author i)) (all-done author)))
 
 (define (fill-tests t c)
   (cond

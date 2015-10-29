@@ -30,3 +30,4 @@
 (profit 5)
 
 (define result (list (profit 2.9)))
+(provide result)
