@@ -1,4 +1,5 @@
 #lang racket
+(require "../../bsl.rkt")
 
 (define (string-first string)
   (string-ith string 0))
