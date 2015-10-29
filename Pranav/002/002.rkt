@@ -4,6 +4,6 @@
 (define suffix "world")
 
 
-(define result (string-append prefix "_" suffix))
+(define result (list (string-append prefix "_" suffix)))
 
 (provide result)
