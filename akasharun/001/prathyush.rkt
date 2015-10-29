@@ -1,4 +1,4 @@
 #lang racket
 
-(define marks 5)
+(define marks 10)
 (provide marks)
