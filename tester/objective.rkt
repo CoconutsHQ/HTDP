@@ -3,7 +3,7 @@
 (require "utils.rkt")
 (require "subjective.rkt")
 
-(define IGNORES (list 5 6 7 8 10 12 23 24 25 26 28 29))
+(define IGNORES (list 5 6 7 8 10 12 18 19 23 24 25 26 28 29))
 
 (define MEMBERS
   (list "akasharun" "pranav" "prathyush" "saurabh"))
@@ -16,8 +16,14 @@
 
 (define MIN-DONE (apply min (map cdr (done MEMBERS))))
 
-(define (testable author)
-  (filter (lambda (i) (not (member i IGNORES))) (range 1 15)))
+(define (testable author till)
+  (filter (lambda (i) (not (member i IGNORES))) (range 1 till)))
+
+(define (all-done author)
+  (testable author 31))
+
+(define (min-done author)
+  (testable author MIN-DONE))
 
 (define (test-location exercise)
   (string-append "tests/" (pad3 (number->string exercise)) ".rkt"))
@@ -26,16 +32,20 @@
   (dynamic-require (test-location exercise) 'test (lambda () 'no-test)))
 
 (define (load-result author exercise)
-  (dynamic-require (exercise-file author exercise) 'result))
+  (let ((file-to-load (exercise-file author exercise)))
+  (if (file-exists? file-to-load) (dynamic-require file-to-load 'result)
+      'non-existent-file)))
 
 (define (idx+test author exercise)
   (let ([tests (import-test exercise)]
         [results (load-result author exercise)])
+    (if (equal? results 'non-existent-file)
+        (cons exercise (list 'undone))
     (cons exercise (map (lambda (t r)
-           (t r)) tests results))))
+           (t r)) tests results)))))
 
 (define (tests-with-index author)
-  (map (lambda (i) (idx+test author i)) (testable author)))
+  (map (lambda (i) (idx+test author i)) (all-done author)))
 
 (define (fill-tests t c)
   (cond
@@ -52,7 +62,10 @@
 
 (define (mark-converter results len)
   (map (lambda (t)
-  (if (equal? #true t) (/ 10 len) 0)) results))
+  (cond
+    ((equal? #true t) (/ 10 len))
+    ((equal? 'undone t) ":interrobang:")
+    (else 0))) results))
   
 (define (mark-rows tests)
 (map (lambda (result) (let* (
