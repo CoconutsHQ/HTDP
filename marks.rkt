@@ -2,44 +2,47 @@
 (require 2htdp/batch-io)
 
 (require "tester/utils.rkt")
+       
+(define (read-rater)
+    (begin (display "Who are you?")
+           (read-line)))  
+(define (read-author)  
+  (begin (display "Who do you want to rate?")
+  (read-line)))  
+(define (read-exercise)
+    (begin (display "Which exercise?")
+           (read-line)))
 
-(define (read-error limit)
-  (begin (display (string-append "Enter a mark between 0 and " (number->string limit)))
-             (string->number (read-line))))
+(define (ask-marks quality limit)
+  (begin (display (string-append "Enter marks for "quality"(0-"(number->string limit)")"))
+         (check (string->number (read-line)) limit)))
+
 (define (check mark limit)
   (if (or (> mark limit)
           (< mark 0))
       (check (read-error limit) limit)
-      mark))       
+      mark))
+(define (read-error limit)
+  (begin (display (string-append "Enter a mark between 0 and " (number->string limit)))
+             (string->number (read-line))))
 
-(define read-rater
-    (begin (display "Who are you?")
-           (read-line)))  
-(define read-author 
-  (begin (display "Who do you want to rate?")
-  (read-line)))
-(define read-exercise
-    (begin (display "Which exercise?")
-           (read-line)))  
-(define (display-question val)
-  (display (string-append "Enter marks for " val)))
+(define rater (read-rater))
+(define author (read-author))
+(define exercise (read-exercise))
 
-
-(display "Enter marks for clarity:(0-5) ")
-(define clarity-marks (check (string->number (read-line)) 5)) 
-(display  "Enter marks for simplicity:(0-2) ")
-(define simplicity-marks (check (string->number (read-line)) 2))
-(display  "Enter marks for cleverness:(0-1) ")
-(define cleverness-marks (check (string->number (read-line)) 1))
-(display  "Enter marks for feel:(0-2) ")
-(define feel-marks (check (string->number (read-line)) 2))
-
-(define marks (+ clarity-marks simplicity-marks cleverness-marks feel-marks))
-
+(define clarity-marks (ask-marks "clarity" 5))
+(define simplicity-marks (ask-marks "simplicity" 2))
+(define cleverness-marks (ask-marks "cleverness" 1))
+(define feel-marks (ask-marks "feel" 2))
 
 (write-file (string-append author "/" (pad3 exercise) "/" rater ".rkt")
              (string-append "#lang racket\n"
-             "(define clarity " (number->string clarity-marks) ")\n"))
+             "(define clarity " (number->string clarity-marks) ")\n"
+             "(define simplicity " (number->string simplicity-marks) ")\n"
+             "(define cleverness "(number->string cleverness-marks) ")\n"
+             "(define feel "(number->string feel-marks) ")\n"
+             "(define marks (+ clarity simplicity cleverness feel))\n"
+             "(provide marks)"))
 
 
 
