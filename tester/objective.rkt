@@ -20,7 +20,7 @@
   (filter (lambda (i) (not (member i IGNORES))) (range 1 till)))
 
 (define (all-done author)
-  (testable author (dict-ref (done MEMBERS) author)))
+  (testable author 31))
 
 (define (min-done author)
   (testable author MIN-DONE))
@@ -32,13 +32,17 @@
   (dynamic-require (test-location exercise) 'test (lambda () 'no-test)))
 
 (define (load-result author exercise)
-  (dynamic-require (exercise-file author exercise) 'result))
+  (let ((file-to-load (exercise-file author exercise)))
+  (if (file-exists? file-to-load) (dynamic-require file-to-load 'result)
+      'non-existent-file)))
 
 (define (idx+test author exercise)
   (let ([tests (import-test exercise)]
         [results (load-result author exercise)])
+    (if (equal? results 'non-existent-file)
+        (cons exercise (list 'undone))
     (cons exercise (map (lambda (t r)
-           (t r)) tests results))))
+           (t r)) tests results)))))
 
 (define (tests-with-index author)
   (map (lambda (i) (idx+test author i)) (all-done author)))
@@ -58,7 +62,10 @@
 
 (define (mark-converter results len)
   (map (lambda (t)
-  (if (equal? #true t) (/ 10 len) 0)) results))
+  (cond
+    ((equal? #true t) (/ 10 len))
+    ((equal? 'undone t) ":interrobang:")
+    (else 0))) results))
   
 (define (mark-rows tests)
 (map (lambda (result) (let* (

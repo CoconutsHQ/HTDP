@@ -38,8 +38,9 @@
 
 (define (display-headers headers widths)
   (build-row (map (lambda (title total-width)
-         (let* ([title-len (string-length title)])
-         (string-append title (space (- total-width title-len))))) headers widths)))
+         (let* ([title-len (string-length title)]
+                [space-count (- total-width title-len)])
+         (string-append title (space (if (< space-count 0) 0 space-count))))) headers widths)))
 
 (define (align st a)
   (if (symbol=? a 'left) (string-append ":" st)
