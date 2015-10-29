@@ -8,6 +8,12 @@
 (define MEMBERS
   (list "akasharun" "pranav" "prathyush" "saurabh"))
 
+(define MEMBER-NAMES
+  (list (cons "akasharun" "Akash Arun")
+        (cons "pranav" "Pranav Pramod")
+        (cons "prathyush" "Prathyush Pramod")
+        (cons "saurabh" "Saurabh Subhash")))
+
 (define MIN-DONE (apply min (map cdr (done MEMBERS))))
 
 (define (testable author)
@@ -22,33 +28,60 @@
 (define (load-result author exercise)
   (dynamic-require (exercise-file author exercise) 'result))
 
-(define (test author exercise)
+(define (idx+test author exercise)
   (let ([tests (import-test exercise)]
         [results (load-result author exercise)])
-    (map (lambda (t r)
-           (t r)) tests results)))
+    (cons exercise (map (lambda (t r)
+           (t r)) tests results))))
 
-(define (tests author)
-  (map (lambda (i) (test author i)) (testable author)))
+(define (tests-with-index author)
+  (map (lambda (i) (idx+test author i)) (testable author)))
 
-(define (headers tests)
-    (let ([most-tests (apply max (map length tests))])
-    (append (list (hgroup "Q." 4 'left))
-          (map (lambda (i) (hgroup (string-append "Test " (number->string i)) 6 'right)) (range 1 (add1 most-tests))))))
-
-(define (mark-converter i len)
+(define (fill-tests t c)
   (cond
-    ((equal? i '-) "-")
-    (i (/ 10 len))
-    (else 0)))
+    ((< (length t) c) (fill-tests (append t (list "-")) c))
+    (else t)))
+    
+(define (uniformize tests count)
+    (map (lambda (i) (fill-tests i count)) tests))
+    
+
+(define (headers test-count)
+    (append (list (hgroup "Q." 4 'left))
+          (map (lambda (i) (hgroup (string-append "Test " (number->string i)) 6 'right)) (range 1 (add1 test-count)))))
+
+(define (mark-converter results len)
+  (map (lambda (t)
+  (if (equal? #true t) (/ 10 len) 0)) results))
   
 (define (mark-rows tests)
-(map (lambda (idx test) (let ([len (length test)])
-                                (append (list idx) (map (lambda (i)
-                                                          (mark-converter i len)) test)))) (range 1 (add1 (length tests)))
-                                                                                                  tests))
+(map (lambda (result) (let* (
+                           [len (length result)])
+                      (mark-converter result len))) tests))
+
+(define (zip k v)
+  (map (lambda (k v) (cons k v)) k v))
+
 (define (build-table author)
-  (let ((all (tests author)))
-(display
- author "\n"
-(table (headers all) (mark-rows all)))))
+  (let* ((all (tests-with-index author))
+         (indices (map first all))
+         (results (mark-rows (map rest all)))
+         (mx (apply max (map length results)))
+         (uniform (uniformize results mx)))
+(table (headers mx) (zip indices uniform))))
+
+(define (report author)
+  (display
+   (string-append
+    (dict-ref MEMBER-NAMES author) "\n"
+    (build-table author))))
+
+
+(define (export author)
+  (let ((out (open-output-file (string-append "../" author "/objective.md") #:mode 'text #:exists 'replace)))
+  (display
+   (string-append
+    (h1 (string-append (dict-ref MEMBER-NAMES author) " (Objective)")) "\n"
+    (build-table author)) out)
+    (close-output-port out)))
+        
