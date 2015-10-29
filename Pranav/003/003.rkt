@@ -4,7 +4,7 @@
 (define i 5)
 
 (define result
-(string-append (substring str 0 i) "_" (substring str i ) 
-))
+(list (string-append (substring str 0 i) "_" (substring str i ) 
+)))
 
 (provide result)
