@@ -2,5 +2,5 @@
 (define sunny #true)
 (define friday #true)
 
-(define result (or (not sunny) friday))
+(define result (list (or (not sunny) friday)))
 (provide result)

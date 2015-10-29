@@ -5,8 +5,6 @@
 (cube-volume 3)
 (cube-surface 3)
 
-(define result1 cube-volume)
-(define result2 cube-surface)
+(define result (list cube-volume cube-surface))
 
-(provide result1)
-(provide result2)
+(provide result)

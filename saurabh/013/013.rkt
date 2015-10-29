@@ -3,5 +3,5 @@
 
 
 (dist 3 4)
-(define result dist)
+(define result (list dist))
 (provide result)
