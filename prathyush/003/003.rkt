@@ -5,6 +5,6 @@
 
 (define result
   (list (string-append (substring str 0 i) "_"
-(substring str i (string-length str)))))
+(substring str i))))
 
 (provide result)

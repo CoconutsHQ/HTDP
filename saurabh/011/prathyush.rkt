@@ -2,8 +2,9 @@
 
 (define clarity 5)
 
-;; substring doesn't necessarily require
-;; string-length calculation.
+;; eqv? is used instead of
+;; boolean=?. boolean=? ensures
+;; that the input is boolean.
 (define simplicity 1)
 (define cleverness 0)
 (define feel 2)
