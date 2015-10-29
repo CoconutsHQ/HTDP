@@ -3,10 +3,7 @@ Todos
 
 Ideas
 =====
+- Todo app
 
-- Todo apps
-
-29 October 2015
----------------
-- Build timetable for upcoming students.
-- Subjective marking for everyone.
+- [29 Oct 2015 5:15pm] Build timetable for upcoming students.
+- [29 Oct 2015 5:15pm] Subjective marking for everyone.
