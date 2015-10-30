@@ -1,24 +1,24 @@
-Pranav Pramod (Objective)
-=========================
+Pranav (Objective)
+==================
 Legend
 ------
 :interrobang: -> Exercise file doesn't exist.
 
-|Q.  |Test 1       |
-|:---|------------:|
-|1   |10           |
-|2   |10           |
-|3   |10           |
-|4   |10           |
-|9   |10           |
-|11  |:interrobang:|
-|13  |:interrobang:|
-|14  |:interrobang:|
-|15  |:interrobang:|
-|16  |:interrobang:|
-|17  |:interrobang:|
-|20  |:interrobang:|
-|21  |:interrobang:|
-|22  |:interrobang:|
-|27  |:interrobang:|
-|30  |:interrobang:|
+|Q.   |Test 1|Test 2|Total |
+|:----|-----:|-----:|-----:|
+|1    |10    |-     |10    |
+|2    |10    |-     |10    |
+|3    |10    |-     |10    |
+|4    |10    |-     |10    |
+|9    |10    |-     |10    |
+|11   |10    |-     |10    |
+|13   |10    |-     |10    |
+|14   |5     |5     |10    |
+|15   |10    |-     |10    |
+|16   |10    |-     |10    |
+|17   |10    |-     |10    |
+|20   |10    |-     |10    |
+|21   |10    |-     |10    |
+|22   |10    |-     |10    |
+|27   |10    |-     |10    |
+|30   |10    |-     |10    |
