@@ -1,106 +1,92 @@
 #lang racket
 
-(require "utils.rkt")
-(require "info.rkt")
+(require "utils.rkt" "info.rkt")
 
-(define MIN-DONE (apply min (map cdr (done MEMBERS))))
-(define MAX-DONE (apply max (map cdr (done MEMBERS))))
+(define DONE-EXERCISES (done MEMBERS))
 
 (define (testable till)
   (filter (lambda (i) (not (member i IGNORES))) (range 1 till)))
 
 (define (all-done author)
-  (testable 31))
+  (testable (dict-ref (done MEMBERS) author)))
 
-(define (min-done author)
+(define MIN-DONE (apply min (map cdr DONE-EXERCISES)))
+
+(define (min-done)
   (testable MIN-DONE))
 
 (define (test-location exercise)
   (string-append "tests/" (pad3 (number->string exercise)) ".rkt"))
 
 (define (import-test exercise)
-  (dynamic-require (test-location exercise) 'test (lambda () 'no-test)))
+  (let ((test-file (test-location exercise)))
+    (if (file-exists? test-file)
+  (dynamic-require (test-location exercise) 'test)
+  'no-test-file)))
 
-(define (load-result author exercise)
+(define (import-result author exercise)
   (let ((file-to-load (exercise-file author exercise)))
   (if (file-exists? file-to-load) (dynamic-require file-to-load 'result)
       'non-existent-file)))
 
-(define (test author exercise)
+(define (run-test author exercise)
   (let ([tests (import-test exercise)]
-        [results (load-result author exercise)])
-    (if (equal? results 'non-existent-file)
-        (list 'undone)
-    (map (lambda (t r)
-           (t r)) tests results))))
-
-(define (idx+test author exercise)
-  (cons exercise (test author exercise)))
-
-(define (tests-with-index author)
-  (map (lambda (i) (idx+test author i)) (all-done author)))
+        [results (import-result author exercise)])
+    (cond ((equal? results 'non-existent-file)
+          (list 'undone))
+          ((equal? tests 'no-test-file)
+          (list 'unimplemented))
+          (else (map (lambda (t r) (t r)) tests results)))))
 
 (define (fill-tests t c)
   (cond
-    ((< (length t) c) (fill-tests (append t (list "-")) c))
+    ((< (length t) c) (fill-tests (append t (list 'na)) c))
     (else t)))
     
 (define (uniformize tests count)
     (map (lambda (i) (fill-tests i count)) tests))
-    
-(define (test-header test-count widths)
-    (append (list (hgroup "Q." 4 'left))
-          (map (lambda (i width)
-                 (hgroup (string-append "Test " (number->string i)) width 'right)) (range 1 (add1 test-count)) widths)))
-
-(define (users-header tests)
-  (append (list (hgroup "Q." 10 'left))
-          (map (lambda (i) (hgroup i (string-length i) 'right)) (map (lambda (i) (dict-ref FIRST-NAMES i)) MEMBERS))))
 
 (define (test-marks tests)
   (let ((len (length tests)))
-  (map (lambda (t)
-  (cond
-    ((equal? #true t) (/ 10 len))
-    ((equal? 'undone t) ":interrobang:")
-    (else 0))) tests)))
+  (map (lambda (t) (if t (/ 10 len) 0)) tests)))
   
-(define (mark-rows tests)
-(map test-marks tests))
+(define (mark-rows tests) (map test-marks tests))
 
-(define (zip k v)
-  (map (lambda (k v) (cons k v)) k v))
+(define (test-results author tests)
+(map (lambda (i) (run-test author i)) tests))
 
-(define (determine-row-width i)
-    (cond
-      ((number? i) 6)
-      ((string? i) (string-length i))
-      (else 0)))
+(define (test-headers count)
+  (map (lambda (i) (string-append "Test " (number->string i))) (range 1 (add1 count))))
 
-(define (build-table author)
-  (let* ((all (tests-with-index author))
-         (indices (map first all))
-         (results (mark-rows (map rest all)))
-         (mx (apply max (map length results)))
-         (uniform (uniformize results mx))
-         (widths (map (lambda (marks) (map determine-row-width marks)) uniform))
-         (max-widths (apply map max widths)))
-(table (test-header mx max-widths) (zip indices uniform))))
-
+(define (obj-results author)
+(let* ((test-idx (all-done "prathyush"))
+       (tests (test-results "prathyush" test-idx))
+(mx (apply max (map length tests)))
+(marks (mark-rows tests))
+(rows (uniformize marks mx))
+(left-margin (cons "Q.   " test-idx))
+(right-margin (cons "Total " (map (lambda (i) (apply + i)) marks))))
+  (align (insert-right (insert-left (cons (test-headers mx) rows)
+               left-margin) right-margin)
+         '(left right right right))))
 
 (define (per-user author)
   (string-join
-    (list (h1 (string-append (dict-ref MEMBER-NAMES author) " (Objective)"))
+    (list 
+    (h1 (string-append (first-name author) " (Objective)"))
     (h2 "Legend")
     ":interrobang: -> Exercise file doesn't exist.\n"
-    (build-table author)) "\n"))
+    (render (obj-results author))) "\n"))
 
-(define (export-user author)
+(define (report-per-user author)
+  (display (per-user author)))
+
+(define (export-per-user author)
   (write! (string-append "../" author "/objective.md")
    (per-user author)))
 
 (define (total-marks member exercise)
-  (apply + (test-marks (filter boolean? (test member exercise)))))
+  (apply + (test-marks (filter boolean? (run-test member exercise)))))
 
 (define (user-marks exercise)
   (map (lambda (i) (total-marks i exercise))
@@ -116,17 +102,10 @@
 (define (overall till)
 (string-join
    (list (h1 "Objective Marks")
-   (table (users-header 3)
+   (render
           (all-user-marks+total till))) "\n"))
 
-(define (report till)
-  (display (overall till)))
+(define (report till) (display (overall till)))
 
 (define (export till)
-  (write! "../objective.md"
-   (overall till)))
-
-(define (write! file input)
-  (let ((out (open-output-file file #:mode 'text #:exists 'replace)))
-    (display input out)
-    (close-output-port out)))
+  (write! "../objective.md" (overall till)))

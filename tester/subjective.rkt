@@ -16,7 +16,7 @@
 (define (expired? rating-file exercise-file)
   (apply < (map file-or-directory-modify-seconds (list rating-file exercise-file))))
 
-(define (rating author rater exercise)
+(define (rating-status author rater exercise)
   (let ([rtg-file (rating-file author rater exercise)]
         [exr-file (exercise-file author exercise)])
   (cond
@@ -24,13 +24,32 @@
                       'expired
                       (let ([marks (dynamic-require rtg-file 'marks (lambda () 'unmarked))])
                         (cond
-                          [(number? marks) (if (<= 0 marks 10) marks 'off-mark)]
+                          [(number? marks) (if (<= 0 marks 10) 'done 'off-mark)]
                           [else marks])))]
+                          
+    [else 'unevaluated])))
+
+(define (rating author rater exercise)
+  (let ([rtg-file (rating-file author rater exercise)]
+        [exr-file (exercise-file author exercise)])
+  (cond
+    [(file-exists? rtg-file) 
+                      (let ([marks (dynamic-require rtg-file 'marks (lambda () 'unmarked))])
+                        (cond
+                          [(number? marks) (if (<= 0 marks 10) marks 'off-mark)]
+                          [else marks]))]
                           
     [else 'unevaluated])))
 
 (define (q+rating author rater q)
   (cons q (list (rating author rater q))))
 
-(define (all-ratings author rater)
-  (map (lambda (i) (q+rating author rater i)) (testable 30)))
+ 
+(define (user-headers)
+  (cons (hgroup "Q." 4 'left) (map (lambda (i)
+       (let* ((mem (dict-ref MEMBER-NAMES i))
+             (len (string-length mem)))
+         (hgroup mem len 'left))) MEMBERS)))
+
+
+             

@@ -11,10 +11,22 @@
         (cons "prathyush" "Prathyush Pramod")
         (cons "saurabh" "Saurabh Subhash")))
 
+(define (first-name i)
+  (dict-ref FIRST-NAMES i))
+
 (define FIRST-NAMES
   (list (cons "akasharun" "Akash")
         (cons "pranav" "Pranav")
         (cons "prathyush" "Prathyush")
         (cons "saurabh" "Saurabh")))
 
-(provide IGNORES MEMBERS MEMBER-NAMES FIRST-NAMES)
+(define SYMBOL-LEGEND
+  (list (cons 'undone  ":interrobang:")
+        (cons 'expired ":sad:")
+        (cons 'na "-")
+        (cons 'unevaluated ":stop:")))
+
+(define (lookup symbol)
+  (dict-ref SYMBOL-LEGEND symbol))
+
+(provide IGNORES MEMBERS MEMBER-NAMES first-name lookup)
