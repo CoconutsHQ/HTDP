@@ -25,7 +25,8 @@
 
 (define SYMBOL-LEGEND
   (list (cons 'undone  ":interrobang:")
-        (cons 'expired ":sad:")
+        (cons 'done ":+1:")
+        (cons 'expired ":hourglass:")
         (cons 'na "-")
         (cons 'unevaluated ":stop:")))
 

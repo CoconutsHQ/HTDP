@@ -4,7 +4,6 @@
 
 (define DONE-EXERCISES (done MEMBERS))
 
-
 (define MIN-DONE (apply min (map cdr DONE-EXERCISES)))
 
 (define (test-location exercise)

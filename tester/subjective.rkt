@@ -8,8 +8,6 @@
 ;; File created earlier
 ;; Rating exists
 ;; Rating beyond limits
-(define (rated? author rater exercise)
- (file-exists? (rating-file author rater exercise)))
 
 (define (expired? rating-file exercise-file)
   (apply < (map file-or-directory-modify-seconds (list rating-file exercise-file))))
@@ -54,7 +52,6 @@
         (averages (get-average ratings)))
         (cons (append (list "Q.   ") (map first-name MEMBERS) (list "Average"))
          (insert-right (insert-left ratings indices) averages))))
-
 
 (define (per-user author)
   (let* ((results (per-user-result author))
