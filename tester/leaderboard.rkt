@@ -1,11 +1,10 @@
-#lang racket
+;#lang racket
 
 ;; TODOS
 ;; Sorting of names
 
 (require "utils.rkt")
 (require "subjective.rkt")
-
 
 
 (define (objective-marks results)

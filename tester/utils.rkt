@@ -80,10 +80,18 @@
     (let ((len (string-length text)))
     (string-join (list text (build-string len (lambda (i) #\-))) "\n")))
 
-(provide pad3)
-(provide rating-file)
-(provide exercise-file)
-(provide hgroup)
-(provide table)
-(provide h1)
-(provide h2)
+;; This file does all the file/directory reading.
+
+(define (get-directory-numbers name)
+   (filter number? (map 
+    (lambda (n)
+      (string->number (path->string n)))
+      (filter (lambda (n) (directory-exists? (build-path "../" name n))) (directory-list (string-append "../" name))))))
+
+(define (last-done name)
+  (cons name (apply max (get-directory-numbers name))))
+
+(define (done members)
+  (map last-done members))
+
+(provide pad3 rating-file exercise-file hgroup table h1 h2 done)

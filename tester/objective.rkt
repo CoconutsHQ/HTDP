@@ -1,24 +1,7 @@
 #lang racket
 
 (require "utils.rkt")
-(require "subjective.rkt")
-
-(define IGNORES (list 5 6 7 8 10 12 18 19 23 24 25 26 28 29))
-
-(define MEMBERS
-  (list "akasharun" "pranav" "prathyush" "saurabh"))
-
-(define MEMBER-NAMES
-  (list (cons "akasharun" "Akash Arun")
-        (cons "pranav" "Pranav Pramod")
-        (cons "prathyush" "Prathyush Pramod")
-        (cons "saurabh" "Saurabh Subhash")))
-
-(define FIRST-NAMES
-  (list (cons "akasharun" "Akash")
-        (cons "pranav" "Pranav")
-        (cons "prathyush" "Prathyush")
-        (cons "saurabh" "Saurabh")))
+(require "info.rkt")
 
 (define MIN-DONE (apply min (map cdr (done MEMBERS))))
 (define MAX-DONE (apply max (map cdr (done MEMBERS))))
@@ -27,10 +10,10 @@
   (filter (lambda (i) (not (member i IGNORES))) (range 1 till)))
 
 (define (all-done author)
-  (testable author 31))
+  (testable 31))
 
 (define (min-done author)
-  (testable author MIN-DONE))
+  (testable MIN-DONE))
 
 (define (test-location exercise)
   (string-append "tests/" (pad3 (number->string exercise)) ".rkt"))
@@ -106,17 +89,15 @@
 
 
 (define (per-user author)
-  (string-append
-    (dict-ref MEMBER-NAMES author) "\n"
-    (build-table author)))
-
-(define (report-user author)
-  (display
-   (per-user author)))
+  (string-join
+    (list (h1 (string-append (dict-ref MEMBER-NAMES author) " (Objective)"))
+    (h2 "Legend")
+    ":interrobang: -> Exercise file doesn't exist.\n"
+    (build-table author)) "\n"))
 
 (define (export-user author)
   (write! (string-append "../" author "/objective.md")
-    (per-user author)))
+   (per-user author)))
 
 (define (total-marks member exercise)
   (apply + (test-marks (filter boolean? (test member exercise)))))
