@@ -58,9 +58,11 @@
 (define (test-headers count)
   (map (lambda (i) (string-append "Test " (number->string i))) (range 1 (add1 count))))
 
+
+
 (define (obj-results author)
-(let* ((test-idx (all-done "prathyush"))
-       (tests (test-results "prathyush" test-idx))
+(let* ((test-idx (all-done author))
+       (tests (test-results author test-idx))
 (mx (apply max (map length tests)))
 (marks (mark-rows tests))
 (rows (uniformize marks mx))
@@ -68,15 +70,22 @@
 (right-margin (cons "Total " (map (lambda (i) (apply + i)) marks))))
   (align (insert-right (insert-left (cons (test-headers mx) rows)
                left-margin) right-margin)
-         '(left right right right))))
+         '(left right))))
 
 (define (per-user author)
+  (let* ((results (obj-results author))
+         (achieved (apply + (map last (cddr results))))
+         (achievable (* (length (all-done author)) 10)))
   (string-join
     (list 
     (h1 (string-append (first-name author) " (Objective)"))
     (h2 "Legend")
     ":interrobang: -> Exercise file doesn't exist.\n"
-    (render (obj-results author))) "\n"))
+    (render results)
+    (string-append
+     "\nYou have achieved: " (number->string achieved) "/"
+     (number->string achievable) " marks"
+     )) "\n")))
 
 (define (report-per-user author)
   (display (per-user author)))
@@ -84,6 +93,9 @@
 (define (export-per-user author)
   (write! (string-append "../" author "/objective.md")
    (per-user author)))
+
+(define (export-all-users)
+  (map export-per-user MEMBERS))
 
 (define (total-marks member exercise)
   (apply + (test-marks (filter boolean? (run-test member exercise)))))
