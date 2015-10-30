@@ -13,7 +13,7 @@
     (begin (display "Which exercise?")
            (read-line)))
 (define (repeat-exercise)
-    (begin (display (string-append "\n""Which other exercise should you want the marks repeated?"))
+    (begin (display (string-append "\n""Do you need these marks to be repeated on any other exercises?"))
            (read-line)))
 
 (define (ask-marks quality limit)
