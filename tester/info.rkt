@@ -2,6 +2,9 @@
 
 (define IGNORES (list 5 6 7 8 10 12 18 19 23 24 25 26 28 29))
 
+(define (testable till)
+  (filter (lambda (i) (not (member i IGNORES))) (range 1 till)))
+
 (define MEMBERS
   (list "akasharun" "pranav" "prathyush" "saurabh"))
 
@@ -29,4 +32,4 @@
 (define (lookup symbol)
   (dict-ref SYMBOL-LEGEND symbol))
 
-(provide IGNORES MEMBERS MEMBER-NAMES first-name lookup)
+(provide testable MEMBERS MEMBER-NAMES first-name lookup)

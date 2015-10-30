@@ -1,15 +1,11 @@
-Pranav (Objective)
-==================
-Legend
-------
-:interrobang: -> Exercise file doesn't exist.
+Pranav (Subjective)
+===================
+|Q.   |Akash|Pranav|Prathyush|Saurabh|Average|
+|:----|----:|-----:|--------:|------:|------:|
+|1    |-    |-     |9        |-      |9      |
+|2    |-    |-     |9        |-      |9      |
+|3    |-    |-     |9        |-      |9      |
+|4    |-    |-     |9        |-      |9      |
+|9    |-    |-     |9        |-      |9      |
 
-|Q.   |Test 1|Total |
-|:----|-----:|-----:|
-|1    |10    |10    |
-|2    |10    |10    |
-|3    |10    |10    |
-|4    |10    |10    |
-|9    |10    |10    |
-
-You have achieved: 50/50 marks
+You have achieved: 45/50 marks
