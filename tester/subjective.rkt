@@ -57,14 +57,21 @@
 
 
 (define (per-user author)
-  (let* ((results (per-user author))
+  (let* ((results (per-user-result author))
          (averages (filter number? (map last results)))
          (sum (apply + averages)))
   (delineate
    (list
     (h1 (string-append (first-name author) " (Subjective)"))
-    (render (align (per-user-result author) '(left right)))
+    (render (align results '(left right)))
     (string-append "\nYou have achieved: " (number->string sum)
                    "/" (number->string (* (length (all-done author)) 10)) " marks")))))
+
+(define (report-per-user author)
+  (display (per-user author)))
+
+(define (export-per-user author)
+  (write! (string-append "../" author "/subjective.md")
+          (per-user author)))
   
              
