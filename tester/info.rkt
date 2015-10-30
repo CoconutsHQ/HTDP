@@ -28,7 +28,7 @@
         (cons 'done ":+1:")
         (cons 'expired ":hourglass:")
         (cons 'na "-")
-        (cons 'unevaluated ":stop:")))
+        (cons 'unevaluated ":x:")))
 
 (define (lookup symbol)
   (dict-ref SYMBOL-LEGEND symbol))

@@ -2,10 +2,10 @@ Pranav (Subjective)
 ===================
 |Q.   |Akash|Pranav|Prathyush|Saurabh|Marks: |
 |:----|----:|-----:|--------:|------:|------:|
-|1    |:stop:|:stop:|:stop:   |:stop: |0      |
-|2    |:stop:|:stop:|:stop:   |:stop: |0      |
-|3    |:stop:|:stop:|:stop:   |:stop: |0      |
-|4    |:stop:|:stop:|:stop:   |:stop: |0      |
-|9    |:stop:|:stop:|:stop:   |:stop: |0      |
+|1    |:x:  |:x:   |:x:      |:x:    |0      |
+|2    |:x:  |:x:   |:x:      |:x:    |0      |
+|3    |:x:  |:x:   |:x:      |:x:    |0      |
+|4    |:x:  |:x:   |:x:      |:x:    |0      |
+|9    |:x:  |:x:   |:x:      |:x:    |0      |
 
 You have achieved: 0/50 marks
