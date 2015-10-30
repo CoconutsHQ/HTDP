@@ -127,8 +127,16 @@
          (spacer (lambda (r) (build-row r widths))))
   (delineate (map concat-row (non-empty-rows (map spacer tbl))))))
 
+(define (repeat-last alignments)
+  (cond
+    ((empty? (rest alignments)) alignments)
+    (else (rest alignments))))
+   
 (define (align-divs divs alignments)
-  (map set-align divs alignments))
+  (cond
+    ((empty? divs) empty)
+    (else (cons (set-align (first divs) (first alignments))
+          (align-divs (rest divs) (repeat-last alignments))))))
 
 (define (print-table table)
   (display (render table)))
