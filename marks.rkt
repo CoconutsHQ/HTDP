@@ -12,6 +12,9 @@
 (define (read-exercise)
     (begin (display "Which exercise?")
            (read-line)))
+(define (repeat-exercise)
+    (begin (display (string-append "\n""Which other exercise should you want the marks repeated?"))
+           (read-line)))
 
 (define (ask-marks quality limit)
   (begin (display (string-append "Enter marks for "quality"(0-"(number->string limit)")"))
@@ -43,6 +46,32 @@
              "(define feel "(number->string feel-marks) ")\n"
              "(define marks (+ clarity simplicity cleverness feel))\n"
              "(provide marks)"))
+
+(define (file repeat)
+      (begin (write-file (string-append author "/" (pad3 repeat) "/" rater ".rkt")
+                  (string-append "#lang racket\n"
+                                  "(define clarity " (number->string clarity-marks) ")\n"
+                                  "(define simplicity " (number->string simplicity-marks) ")\n"
+                                  "(define cleverness "(number->string cleverness-marks) ")\n"
+                                  "(define feel "(number->string feel-marks) ")\n"
+                                  "(define marks (+ clarity simplicity cleverness feel))\n"
+                                  "(provide marks)"))
+             (display (string-append author "/" (pad3 repeat) "/" rater ".rkt"))))                
+     
+(define (loop repeat)
+  (loop (file (repeat-exercise))))
+  
+(loop (file (repeat-exercise)))
+
+  
+           
+           
+             
+             
+            
+           
+                  
+             
 
 
 
