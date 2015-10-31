@@ -7,5 +7,5 @@
     [(< (image-height img) (image-width img)) "wide"]))
 
 (image-classify (circle 3 "solid" "red"))
-(define result image-classify)
+(define result (list image-classify))
 (provide result)

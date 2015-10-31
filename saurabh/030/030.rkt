@@ -15,5 +15,5 @@
 (profit 3)
 (profit 4)
 
-(define result profit )
+(define result (list profit ))
 (provide result)

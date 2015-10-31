@@ -18,5 +18,5 @@
 (revenue 5)
 (cost 5)
 (profit 5)
-(define result profit)
+(define result (list profit))
 (provide result)
