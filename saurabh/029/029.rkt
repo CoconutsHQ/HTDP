@@ -14,9 +14,7 @@
 (define INITIAL-PRICE 5)
 (define ATTENDANCE-CHANGE 15)
 (define PRICE-CHANGE 0.1)
-(attendees 5)
-(revenue 5)
-(cost 5)
+
 (profit 5)
 (define result (list profit))
 (provide result)
