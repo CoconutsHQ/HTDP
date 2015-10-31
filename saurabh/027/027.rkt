@@ -1,0 +1,11 @@
+#lang racket
+
+(define (image-classify img)
+  (cond
+    [(> (image-height img) (image-width img)) "tall"]
+    [(= (image-height img) (image-width img)) "square"]
+    [(< (image-height img) (image-width img)) "wide"]))
+
+(image-classify (circle 3 "solid" "red"))
+(define result image-classify)
+(provide result)
