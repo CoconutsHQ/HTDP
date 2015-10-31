@@ -1,5 +1,5 @@
 #lang racket
-
+(require 2htdp/image)
 (define (image-classify img)
   (cond
     [(> (image-height img) (image-width img)) "tall"]
