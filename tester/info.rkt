@@ -1,6 +1,6 @@
 #lang racket
 
-(define IGNORES (list 5 6 7 8 10 12 18 19 23 24 25 26 28 29))
+(define IGNORES (list 5 6 7 8 10 12 18 19 23 24 25 26 28 29 32))
 
 (define (testable till)
   (filter (lambda (i) (not (member i IGNORES))) (range 1 till)))

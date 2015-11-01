@@ -36,7 +36,7 @@
          (marks (filter number? (map last results))))
   (delineate
    (list
-    (h1 (string-append (first-name author) " (Subjective)"))
+    (h1 (string-append (first-name author) " (Ratings)"))
     (render (align results '(left right)))
     (string-append "\nYou have achieved: " (number->string (apply + marks))
                    "/" (number->string (* (length (all-done author)) 10)) " marks")))))

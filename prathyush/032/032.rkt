@@ -5,12 +5,13 @@
 (define BASELINE-PRICE 5.0)
 (define ATTENDANCE-CHANGE 15)
 (define PRICE-CHANGE 0.1)
+(define INFLUX (/ ATTENDANCE-CHANGE PRICE-CHANGE))
 
 ;; Fixed costs
 (define COST-PER-ATTENDEE 1.5)
 
 (define (attendees ticket-price)
-  (- BASELINE-ATTENDANCE (* (- ticket-price BASELINE-PRICE) (/ ATTENDANCE-CHANGE PRICE-CHANGE))))
+  (- BASELINE-ATTENDANCE (* (- ticket-price BASELINE-PRICE) INFLUX)))
 
 (define (revenue ticket-price)
   (* ticket-price (attendees ticket-price)))
