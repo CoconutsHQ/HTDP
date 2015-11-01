@@ -1,6 +1,6 @@
 #lang racket
 
-(define IGNORES (list 5 6 7 8 10 12 18 19 23 24 25 26 28 29))
+(define IGNORES (list 5 6 7 8 10 12 18 19 23 24 25 26 28 29 32 34 35 38 41 43 44 45 46 47 48 ))
 
 (define MEMBERS
   (list "akasharun" "pranav" "prathyush" "saurabh"))

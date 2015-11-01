@@ -1,0 +1,65 @@
+* Reading Chapter 3
+  :LOGBOOK:
+  CLOCK: [2015-10-31 Sat 22:12]--[2015-10-31 Sat 22:37] =>  0:25
+  :END:
+
+* 3.1 Designing Functions
+
+Since this knowledge is so important for everyone who reads the
+program, we often write it down in the form of comments, which we call
+data definitions. The purpose of a data definition is two-fold. On the
+one hand, it names a class or a collection of data, typically using a
+meaningful word. On the other hand, it informs readers how to create
+elements of this class of data and how to decide whether some
+arbitrary piece of data is an element of this collection.
+
+All this extra work is necessary because programmers don’t create
+programs for themselves. Programmers write programs for other
+programmers to read, and on occasion, people run these programs to get
+work done. Most programs are large, complex collections of
+collaborating functions, and nobody can write all these functions in a
+day. Programmers join projects, write code, leave projects; others
+take over their programs and work on them. Another difficulty is that
+the programmer’s clients tend to change their mind about what problem
+they really want solved. They usually have it almost right, but more
+often than not, they get some details wrong. Worse, complex logical
+constructions such as programs almost always suffer from human errors;
+in short, programmers make mistakes. Eventually someone discovers
+these errors and programmers must fix them. They need to re-read the
+programs from a month ago, a year ago, or twenty years ago and change
+them.
+
+As this signature points out, introducing a data definition as an
+alias for an existing form of data makes it easy to read the intention
+behind signatures.
+
+Nevertheless, we recommend to stay away from aliasing data definitions
+for now. A proliferation of such names can cause quite some
+confusion. It takes practice to balance the need for new names and the
+readability of programs, and there are more important ideas to
+understand for now.
+
+# The flagship idea of this book is that it enables you to write
+# descriptions of the program and make some kind of progress
+# even when the question in mind seems untackleable. Kind of
+# like bird by bird.
+
+A purpose statement is a BSL comment that summarizes the purpose of
+the function in a single line. If you are ever in doubt about a
+purpose statement, write down the shortest possible answer to the
+question what does the function compute?
+
+Every reader of your program should understand what your functions
+compute without having to read the function itself.
+
+A multi-function program should also come with a purpose
+statement. Indeed, good programmers write two purpose statements: one
+for the reader who may have to modify the code and another one for the
+person who wishes to use the program but not read it.
+
+Finally, a header is a simplistic function definition, also called a
+stub. Pick one parameter for each input data class in the signature;
+the body of the function can be any piece of data from the output
+class.
+
+
