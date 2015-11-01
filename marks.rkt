@@ -119,7 +119,7 @@
                            "(provide (clarity simplicity cleverness feel)")))
 
 
-; Ask For A Question To Check Whether The Marks Need To Be` Repeated
+; Ask For A Question To Check Whether The Marks Need To Be Repeated
 
 (define (print-repeat)
   (display (string-append "\n""Do you need these marks to be repeated on any other exercise?"))
