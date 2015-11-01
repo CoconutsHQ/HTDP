@@ -20,6 +20,7 @@
 ;; string -> string
 (define (pad3 n) (pad n 3))
 
+
 ;; Given an author and an exercise, gives
 ;; the corresponding exercise file.
 
@@ -56,6 +57,9 @@
 ;; Gets the last done exercise of all members.
 (define (done members)
   (map last-done members))
+
+(define (all-done author)
+  (testable (dict-ref (done MEMBERS) author)))
 
 ;; TABLE
 ;; ******
@@ -127,8 +131,16 @@
          (spacer (lambda (r) (build-row r widths))))
   (delineate (map concat-row (non-empty-rows (map spacer tbl))))))
 
+(define (repeat-last alignments)
+  (cond
+    ((empty? (rest alignments)) alignments)
+    (else (rest alignments))))
+   
 (define (align-divs divs alignments)
-  (map set-align divs alignments))
+  (cond
+    ((empty? divs) empty)
+    (else (cons (set-align (first divs) (first alignments))
+          (align-divs (rest divs) (repeat-last alignments))))))
 
 (define (print-table table)
   (display (render table)))
@@ -162,4 +174,4 @@
     (display input out)
     (close-output-port out)))
 
-(provide pad3 rating-file exercise-file h1 h2 align render insert-left insert-right insert-bottom print-table done write!)
+(provide pad3 rating-file exercise-file delineate h1 h2 align render insert-left insert-right insert-bottom print-table done write! all-done)

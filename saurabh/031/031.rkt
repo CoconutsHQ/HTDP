@@ -1,0 +1,24 @@
+#lang racket
+(define (attendees ticket-price)
+  (- ATTENDANCE (* (- ticket-price INITIAL-PRICE) (/ ATTENDANCE-CHANGE PRICE-CHANGE))))
+(define (revenue ticket-price)
+  (* ticket-price (attendees ticket-price)))
+(define (cost ticket-price)
+  (* (attendees ticket-price) COST-1 ))
+(define (profit ticket-price)
+  (- (revenue ticket-price)
+     (cost ticket-price)))
+(define ATTENDANCE 120)
+(define COST-1 1.5)
+(define ATTENDANCE-COST 0.04)
+(define INITIAL-PRICE 5)
+(define ATTENDANCE-CHANGE 15)
+(define PRICE-CHANGE 0.1)
+
+(profit 5)
+(profit 3)
+(profit 4)
+
+(define result(list profit))
+(provide result)
+

@@ -4,16 +4,7 @@
 
 (define DONE-EXERCISES (done MEMBERS))
 
-(define (testable till)
-  (filter (lambda (i) (not (member i IGNORES))) (range 1 till)))
-
-(define (all-done author)
-  (testable (dict-ref (done MEMBERS) author)))
-
 (define MIN-DONE (apply min (map cdr DONE-EXERCISES)))
-
-(define (min-done)
-  (testable MIN-DONE))
 
 (define (test-location exercise)
   (string-append "tests/" (pad3 (number->string exercise)) ".rkt"))
@@ -58,9 +49,11 @@
 (define (test-headers count)
   (map (lambda (i) (string-append "Test " (number->string i))) (range 1 (add1 count))))
 
+
+
 (define (obj-results author)
-(let* ((test-idx (all-done "prathyush"))
-       (tests (test-results "prathyush" test-idx))
+(let* ((test-idx (all-done author))
+       (tests (test-results author test-idx))
 (mx (apply max (map length tests)))
 (marks (mark-rows tests))
 (rows (uniformize marks mx))
@@ -68,15 +61,22 @@
 (right-margin (cons "Total " (map (lambda (i) (apply + i)) marks))))
   (align (insert-right (insert-left (cons (test-headers mx) rows)
                left-margin) right-margin)
-         '(left right right right))))
+         '(left right))))
 
 (define (per-user author)
+  (let* ((results (obj-results author))
+         (achieved (apply + (map last (cddr results))))
+         (achievable (* (length (all-done author)) 10)))
   (string-join
     (list 
     (h1 (string-append (first-name author) " (Objective)"))
     (h2 "Legend")
     ":interrobang: -> Exercise file doesn't exist.\n"
-    (render (obj-results author))) "\n"))
+    (render results)
+    (string-append
+     "\nYou have achieved: " (number->string achieved) "/"
+     (number->string achievable) " marks"
+     )) "\n")))
 
 (define (report-per-user author)
   (display (per-user author)))
@@ -85,6 +85,9 @@
   (write! (string-append "../" author "/objective.md")
    (per-user author)))
 
+(define (export-all-users)
+  (map export-per-user MEMBERS))
+
 (define (total-marks member exercise)
   (apply + (test-marks (filter boolean? (run-test member exercise)))))
 
@@ -92,18 +95,24 @@
   (map (lambda (i) (total-marks i exercise))
        MEMBERS))
 
-(define (exercise+user-marks exercise)
-  (cons exercise (user-marks exercise)))
+(define (aggregate-row results)
+  (let ((total (apply map + results)))
+    (cons "**Total**" (map (lambda (i) (string-append "**"
+                                     (number->string i)
+                                     "**")) total))))
 
-(define (all-user-marks+total till)
-  (let ([all (map exercise+user-marks (testable (add1 till)))])
-    (append all (list (append (list "Total") (apply map + (map user-marks (testable (add1 till)))))))))
+(define (all-user-marks till)
+  (let* ([all (map user-marks (testable (add1 till)))]
+        [headers (map first-name MEMBERS)]
+        [left-margin (cons "Q.       " (testable MIN-DONE))]
+        [bottom-result (aggregate-row all)])
+    (insert-bottom (insert-left (cons headers all) left-margin)
+                   bottom-result)))
 
 (define (overall till)
 (string-join
    (list (h1 "Objective Marks")
-   (render
-          (all-user-marks+total till))) "\n"))
+   (render (align (all-user-marks till) '(left right)))) "\n"))
 
 (define (report till) (display (overall till)))
 
