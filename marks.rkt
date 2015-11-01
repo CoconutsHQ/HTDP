@@ -33,19 +33,21 @@
                           0)) "no")
         "okay"
         (begin (display "\nWhich exercise?")
-               (read-line))))                                                                                                                                                                                                                                                                                                                                                                                               
+               (read-line))))
+
 (define (alias in)
   (if (or (string=? in "akasharun")
-                      (string=? in "akash")
-                      (string=? in "ash"))
-                  "akasharun"
-                  (if (or (string=? in "pranav")
-                          (string=? in "prnv"))
-                      "pranav"
-                      (if (or (string=? in "saurabh")
-                          (string=? in "sau"))
-                          "saurabh"
-                          in))))                      
+          (string=? in "akash")
+          (string=? in "ash"))
+          "akasharun"
+          (if (or (string=? in "pranav")
+                  (string=? in "prnv"))
+                   "pranav"
+          (if (or (string=? in "saurabh")
+                  (string=? in "sau"))
+                  "saurabh"
+                   in))))             
+                               
 
 (define (ask-marks quality limit)
   (begin (display (string-append "Enter marks for "quality"(0-"(number->string limit)")"))
@@ -92,7 +94,9 @@
              (display (string-append author "/" (pad3 repeat) "/" rater ".rkt"))))               
      
 (define (loop repeat)
-  (loop (file (repeat-exercise))))
+  (loop (file (if (string=? (repeat-exercise) "exit")
+                  (end)
+                  )))
 (if (string=? (repeat-exercise) "okay")
     (end)
     (loop (file (repeat-exercise)))) 
