@@ -1,6 +1,6 @@
 #lang racket
 (define (string-insert string i) (string-append 
- (substring string 0 i ) "_" (substring string i (string-length string))))
+ (substring string 0 i ) "_" (substring string i )))
 (string-insert "helloworld" 5)
 (define result (list string-insert))
 (provide result)
