@@ -61,6 +61,8 @@
 (define (all-done author)
   (testable (dict-ref (done MEMBERS) author)))
 
+(define MIN-DONE (apply min (map cdr (done MEMBERS))))
+
 ;; TABLE
 ;; ******
 
@@ -174,4 +176,4 @@
     (display input out)
     (close-output-port out)))
 
-(provide pad3 rating-file exercise-file delineate h1 h2 align render insert-left insert-right insert-bottom print-table done write! all-done)
+(provide pad3 rating-file exercise-file delineate h1 h2 align render insert-left insert-right insert-bottom print-table done write! all-done MIN-DONE)
