@@ -17,13 +17,16 @@
                           
     [else 'unevaluated])))
 
-(define (ratings-for-exercise rater exercise)
-  (map (lambda (i) (rating-status i rater exercise)) MEMBERS))
+(define (ratings-status rater exercises)
+  (map (lambda (exercise)
+         (map (lambda (i) (rating-status i rater exercise)) MEMBERS))
+         exercises))
 
+(provide ratings-status)
 
 (define (per-user-result author)
   (let* ((indices (all-done author))
-        (ratings (map (lambda (i) (ratings-for-exercise author i)) indices))
+        (ratings (ratings-status author indices))
         (marks (assign-marks ratings)))
         (cons (append (list "Q.   ") (map first-name MEMBERS) (list "Marks: "))
          (insert-right (insert-left ratings indices) marks))))

@@ -27,6 +27,6 @@
 (define (signature sign)  (string-append "\n" "yours sincerely " "\n" sign))
 
   
-(main "1.dat" "2.dat" "3.dat" "sau.dat")
-(define result out)
+;(main "1.dat" "2.dat" "3.dat" "sau.dat")
+(define result (list main))
 (provide result)

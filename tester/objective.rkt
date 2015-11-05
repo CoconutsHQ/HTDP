@@ -2,10 +2,6 @@
 
 (require "utils.rkt" "info.rkt")
 
-(define DONE-EXERCISES (done MEMBERS))
-
-(define MIN-DONE (apply min (map cdr DONE-EXERCISES)))
-
 (define (test-location exercise)
   (string-append "tests/" (pad3 (number->string exercise)) ".rkt"))
 
@@ -39,54 +35,22 @@
 
 (define (test-marks tests)
   (let ((len (length tests)))
-  (map (lambda (t) (if t (/ 10 len) 0)) tests)))
+  (map (lambda (t) (cond
+                     ((boolean? t) (if t (/ 10 len) 0))
+                     (else t))) tests)))
   
 (define (mark-rows tests) (map test-marks tests))
 
-(define (test-results author tests)
-(map (lambda (i) (run-test author i)) tests))
+(define (obj-test-results author tests)
+(map (lambda (i) (test-marks (run-test author i))) tests))
 
 (define (test-headers count)
   (map (lambda (i) (string-append "Test " (number->string i))) (range 1 (add1 count))))
 
+(define (max-test-count results)
+  (apply max (map length results)))
 
-
-(define (obj-results author)
-(let* ((test-idx (all-done author))
-       (tests (test-results author test-idx))
-(mx (apply max (map length tests)))
-(marks (mark-rows tests))
-(rows (uniformize marks mx))
-(left-margin (cons "Q.   " test-idx))
-(right-margin (cons "Total " (map (lambda (i) (apply + i)) marks))))
-  (align (insert-right (insert-left (cons (test-headers mx) rows)
-               left-margin) right-margin)
-         '(left right))))
-
-(define (per-user author)
-  (let* ((results (obj-results author))
-         (achieved (apply + (map last (cddr results))))
-         (achievable (* (length (all-done author)) 10)))
-  (string-join
-    (list 
-    (h1 (string-append (first-name author) " (Objective)"))
-    (h2 "Legend")
-    ":interrobang: -> Exercise file doesn't exist.\n"
-    (render results)
-    (string-append
-     "\nYou have achieved: " (number->string achieved) "/"
-     (number->string achievable) " marks"
-     )) "\n")))
-
-(define (report-per-user author)
-  (display (per-user author)))
-
-(define (export-per-user author)
-  (write! (string-append "../" author "/objective.md")
-   (per-user author)))
-
-(define (export-all-users)
-  (map export-per-user MEMBERS))
+(provide uniformize max-test-count obj-test-results test-headers)
 
 (define (total-marks member exercise)
   (apply + (test-marks (filter boolean? (run-test member exercise)))))

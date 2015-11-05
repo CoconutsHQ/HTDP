@@ -9,3 +9,6 @@
 ; (define (string-first str) (... s ...)
 
 (define (string-last str) (substring str (- (string-length str) 1 ) ))
+
+(define result (list string-last))
+(provide result)

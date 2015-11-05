@@ -1,3 +1,5 @@
+#lang racket
+
 ; String -> String
 
 ; Calculates the first character of string.
@@ -10,3 +12,6 @@
 
 (define (string-first s)
 (substring s 0 1))
+
+(define result (list string-first))
+(provide result)

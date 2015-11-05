@@ -3,7 +3,6 @@
 (require "utils.rkt")
 (require "info.rkt")
 
-
 ;; File exists
 ;; File created earlier
 ;; Rating exists
@@ -33,42 +32,10 @@
                          
     [else 'na])))
 
-
 (define (ratings-for-exercise author exercise)
   (map (lambda (i) (rating author i exercise)) MEMBERS))
 
-(define (get-average results)
-  (map (lambda (i)
-         (let* ((results (filter number? i))
-               (len (length results)))
-           (if (> len 0)
-               (/ (apply + results) len)
-               'na)))
-           results))
+(define (ratings author exercises)
+  (map (lambda (i) (ratings-for-exercise author i)) exercises))
 
-(define (per-user-result author)
-  (let* ((indices (all-done author))
-        (ratings (map (lambda (i) (ratings-for-exercise author i)) indices))
-        (averages (get-average ratings)))
-        (cons (append (list "Q.   ") (map first-name MEMBERS) (list "Average"))
-         (insert-right (insert-left ratings indices) averages))))
-
-(define (per-user author)
-  (let* ((results (per-user-result author))
-         (averages (filter number? (map last results)))
-         (sum (apply + averages)))
-  (delineate
-   (list
-    (h1 (string-append (first-name author) " (Subjective)"))
-    (render (align results '(left right)))
-    (string-append "\nYou have achieved: " (number->string sum)
-                   "/" (number->string (* (length (all-done author)) 10)) " marks")))))
-
-(define (report-per-user author)
-  (display (per-user author)))
-
-(define (export-per-user author)
-  (write! (string-append "../" author "/subjective.md")
-          (per-user author)))
-  
-             
+(provide ratings)             

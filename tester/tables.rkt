@@ -6,6 +6,39 @@
 (require "subjective.rkt")
 (require "ratings.rkt")
 
+(define (user-dir author file)
+  (string-append "../" author "/" file))
+
+(define (sum-list l)
+  (apply + (filter number? l)))
+
+(define (avg-list l)
+  (let ([len (length (filter number? l))])
+    (if (> len 0)
+        (* (/ (sum-list l) len) 1.0)
+        'na)))
+
+(define (sum-rows rows)
+  (map sum-list rows))
+
+(define (avg-rows rows)
+  (map avg-list rows))
+
+(define (report header table footer)
+  (display (string-join
+   (list header
+   (render table)
+   footer) "\n")))
+
+(define (net-score achieved achievable)
+  (string-append "You have achieved: "
+                 (number->string achieved)
+                 "/"
+     (number->string achievable) " marks"))
+
+(define (every-number? row)
+  (andmap number? row))
+
 ;; A rating table is
 ;; idx | Quantity | Quantity | ... | Aggregate |
 ;; 1 | value    | value    | ... | value     |
@@ -16,11 +49,61 @@
 
 ;; 1) Per user table
 
+(define (per-user-table headers idx quantity aggregate)
+  (align (cons headers (insert-right (insert-left quantity idx) aggregate)) '(left right)))
+
 ;; Objective
 ;; ---------
+;; headers : Q. Test1 Test2 ... Total
 ;; idx : all done questions of user
 ;; Quantity : Tests of each question
 ;; Aggregate : Sum of all tests
 
-(define (per-user-table idx quantity aggregate)
-  (insert-right (insert-left idx quantity) aggregate)
+(define (per-user-header headers agg)
+  (append (cons "Q. " headers) (list agg)))
+
+(define (obj-table author)
+  (let* (
+        [ids (all-done author)]
+        [results (obj-test-results author ids)]
+        [mx (max-test-count results)]
+        [uniform-results (uniformize results mx)]
+        [headers (per-user-header (test-headers mx) "Total")]
+        [agg (sum-rows results)]
+        [net (sum-list agg)])
+    (report
+     (h1 (string-append (first-name author) " (Objective)"))
+         (per-user-table headers ids uniform-results agg)
+         (net-score net (* (length (filter every-number? results)) 10)))))
+
+; No need to uniformize.
+(define (sub-table author)
+  (let* ([ids (all-done author)]
+         [results (ratings author ids)]
+         [headers (per-user-header (map first-name MEMBERS) "Average")]
+         [agg (avg-rows results)]
+         [net (sum-list agg)])
+    (report
+     (h1 (string-append (first-name author) " (Subjective)"))
+     (per-user-table headers ids results agg)
+     (net-score net (* (length results) 10)))))
+
+(define (rtg-table author)
+  (let* ([ids (all-done author)]
+         [results (ratings-status author ids)]
+         [headers (per-user-header (map first-name MEMBERS) "Total: ")]
+         [agg (sum-rows results)]
+         [net (sum-list agg)])
+    (report
+     (h1 (string-append (first-name author) " (Ratings)"))
+     (per-user-table headers ids results agg)
+     (net-score net (* (length results) 10)))))
+
+(define (export-obj author)
+  (write! (user-dir author "objective.md") (obj-table author)))
+
+(define (export-sub author)
+  (write! (user-dir author "subjective.md") (sub-table author)))
+  
+(define (export-rtg author)
+  (write! (user-dir author "ratings.md") (rtg-table author)))

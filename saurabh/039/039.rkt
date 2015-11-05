@@ -10,3 +10,6 @@
 ; (define (string-rest str) (... s ...)
 
 (define (string-rest str) (substring str 1))
+
+(define result (list string-rest))
+(provide result)

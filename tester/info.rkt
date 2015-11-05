@@ -29,6 +29,7 @@
   (list (cons 'undone  ":interrobang:")
         (cons 'done ":+1:")
         (cons 'expired ":hourglass:")
+        (cons 'unimplemented ":white_circle:")
         (cons 'na "-")
         (cons 'unevaluated ":x:")))
 
