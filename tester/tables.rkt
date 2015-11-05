@@ -99,6 +99,25 @@
      (per-user-table headers ids results agg)
      (net-score net (* (length results) 10)))))
 
+(define (sum-all results)
+  (map sum-list results))
+
+(define (all-results author qs)
+  (map list (sum-rows (obj-test-results author qs))
+       (avg-rows (ratings author qs))
+       (assign-marks (ratings-status author qs))))
+
+(define (all-table author)
+   (let* ([ids (all-done author)]
+         [results (all-results author ids)]
+         [headers (per-user-header (list "Objective" "Subjective" "Rating") "Total: ")]
+         [agg (sum-all results)]
+         [net (sum-list agg)])
+    (report
+     (h1 (first-name author))
+     (per-user-table headers ids results agg)
+     (net-score net (* (length results) 30)))))
+  
 (define (export-obj author)
   (write! (user-dir author "objective.md") (obj-table author)))
 
@@ -108,8 +127,12 @@
 (define (export-rtg author)
   (write! (user-dir author "ratings.md") (rtg-table author)))
 
-(define (export-all-users)
+(define (export-all author)
+  (write! (user-dir author "results.md") (all-table author)))
+
+(define (export-users)
   (map (lambda (usr)
          (export-obj usr)
          (export-sub usr)
-         (export-rtg usr)) MEMBERS))
+         (export-rtg usr)
+         (export-all usr)) MEMBERS))
