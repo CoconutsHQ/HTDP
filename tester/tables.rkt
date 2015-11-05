@@ -128,10 +128,10 @@
   (write! (user-dir author "ratings.md") (rtg-table author)))
 
 (define (export-all author)
-  (write! (user-dir author "results.md") (all-table author)))
+  (write! (user-dir author "readme.md") (all-table author)))
 
 (define (export-users)
-  (map (lambda (usr)
+  (andmap (lambda (usr)
          (export-obj usr)
          (export-sub usr)
          (export-rtg usr)
