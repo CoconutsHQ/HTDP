@@ -136,3 +136,37 @@
          (export-sub usr)
          (export-rtg usr)
          (export-all usr)) MEMBERS))
+
+(define (single-user author)
+  (let ([ids MIN-DONE])
+    (list (sum-list (sum-rows (obj-test-results author ids)))
+    (sum-list (avg-rows (ratings author ids)))
+    (sum-list (assign-marks (ratings-status author ids))))))
+
+(define (sort-points l)
+  (sort l (lambda (i j) (> (last i) (last j)))))
+
+(define (add-prathyush l)
+  (let* ([p-points (single-user "prathyush")]
+         [p-row (cons "Prathyush" (append p-points (list (sum-list p-points))))])
+    (append l (list p-row))))
+  
+(define (status)
+  (let* ([members (remove "prathyush" MEMBERS)]
+         [names (map first-name members)]
+         [results (map single-user members)]
+         [headers (list "Member    " "Objective" "Subjective" "Ratings" "Total")]
+         [agg (sum-rows results)])
+  (align
+   (cons headers 
+        (add-prathyush
+         (insert-right (insert-left results names) agg))) '(left right))))
+
+(define (leaderboard)
+  (report
+   (h1 "Leaderboard")
+   (leaderboard)
+   ""))
+
+(define (export-leaderboard)
+  (write! "../readme.md" (leaderboard)))

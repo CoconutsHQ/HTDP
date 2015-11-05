@@ -61,7 +61,7 @@
 (define (all-done author)
   (testable (dict-ref (done MEMBERS) author)))
 
-(define MIN-DONE (apply min (map cdr (done MEMBERS))))
+(define MIN-DONE (testable (apply min (map cdr (done MEMBERS)))))
 
 ;; TABLE
 ;; ******
