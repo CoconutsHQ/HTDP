@@ -36,7 +36,7 @@
 (define (test-marks tests)
   (let ((len (length tests)))
   (map (lambda (t) (cond
-                     ((boolean? t) (if t (/ 10 len) 0))
+                     ((boolean? t) (if t (/ 10.0 len) 0))
                      (else t))) tests)))
   
 (define (mark-rows tests) (map test-marks tests))
