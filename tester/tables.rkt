@@ -92,7 +92,7 @@
   (let* ([ids (all-done author)]
          [results (ratings-status author ids)]
          [headers (per-user-header (map first-name MEMBERS) "Total: ")]
-         [agg (sum-rows results)]
+         [agg (assign-marks results)]
          [net (sum-list agg)])
     (report
      (h1 (string-append (first-name author) " (Ratings)"))

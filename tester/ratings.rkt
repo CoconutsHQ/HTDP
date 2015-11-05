@@ -22,7 +22,7 @@
          (map (lambda (i) (rating-status i rater exercise)) MEMBERS))
          exercises))
 
-(provide ratings-status)
+(provide ratings-status assign-marks)
 
 (define (per-user-result author)
   (let* ((indices (all-done author))
