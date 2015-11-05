@@ -25,10 +25,10 @@
   (map avg-list rows))
 
 (define (report header table footer)
-  (display (string-join
+  (string-join
    (list header
    (render table)
-   footer) "\n")))
+   footer) "\n"))
 
 (define (net-score achieved achievable)
   (string-append "You have achieved: "
@@ -107,3 +107,9 @@
   
 (define (export-rtg author)
   (write! (user-dir author "ratings.md") (rtg-table author)))
+
+(define (export-all-users)
+  (map (lambda (usr)
+         (export-obj usr)
+         (export-sub usr)
+         (export-rtg usr)) MEMBERS))
