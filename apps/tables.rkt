@@ -165,7 +165,7 @@
 (define (leaderboard)
   (report
    (h1 "Leaderboard")
-   (leaderboard)
+   (status)
    ""))
 
 (define (export-leaderboard)
