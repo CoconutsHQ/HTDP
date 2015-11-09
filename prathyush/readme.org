@@ -1,14 +1,14 @@
 * HTDP 2e
 
 #+BEGIN: clocktable :maxlevel 2 :scope subtree
-#+CAPTION: Clock summary at [2015-10-17 Sat 20:44]
+#+CAPTION: Clock summary at [2015-11-09 Mon 18:30]
 | Headline                    | Time   |      |
 |-----------------------------+--------+------|
-| *Total time*                | *4:00* |      |
+| *Total time*                | *7:00* |      |
 |-----------------------------+--------+------|
-| HTDP 2e                     | 4:00   |      |
+| HTDP 2e                     | 7:00   |      |
 | \_  Preface and Prologue    |        | 2:30 |
-| \_  Part I: Fixed Size Data |        | 1:30 |
+| \_  Part I: Fixed Size Data |        | 4:30 |
 #+END:
    
 ** Preface and Prologue
@@ -28,6 +28,15 @@
    CLOCK: [2015-10-06 Tue 09:21]--[2015-10-06 Tue 09:51] =>  0:30
    
 ** Part I: Fixed Size Data
+#+BEGIN: clocktable :maxlevel 2 :scope subtree
+#+CAPTION: Clock summary at [2015-11-09 Mon 17:14]
+| Headline                    | Time   |      |
+|-----------------------------+--------+------|
+| *Total time*                | *3:30* |      |
+|-----------------------------+--------+------|
+| \_  Part I: Fixed Size Data |        | 3:30 |
+#+END:
+
 *** Chapter 1: Arithmetic
 
 Exercise 1 - 10
@@ -40,5 +49,20 @@ Reading
 *** Chapter 2: Functions
     CLOCK: [2015-10-29 Thu 01:37]--[2015-10-29 Thu 02:07] =>  0:30
     CLOCK: [2015-10-29 Thu 00:50]--[2015-10-29 Thu 01:20] =>  0:30
+
+*** Chapter 3: How to Design Programs
+
+    Read till 3.5
+    CLOCK: [2015-11-09 Mon 16:10]--[2015-11-09 Mon 16:40] =>  0:30
+    
+    Finished till Ex 42.
+    CLOCK: [2015-11-09 Mon 16:41]--[2015-11-09 Mon 17:11] =>  0:30
+
+
+    Completed till 40.
+    CLOCK: [2015-11-09 Mon 17:14]--[2015-11-09 Mon 17:44] =>  0:30
+
+    Completed till 43.
+    CLOCK: [2015-11-09 Mon 17:45]--[2015-11-09 Mon 18:15] =>  0:30
 
 
