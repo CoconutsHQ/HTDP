@@ -3,9 +3,10 @@
 (require 2htdp/universe)
 (require test-engine/racket-gui)
 
-; WorldState is a Number
-; interpretation the number of pixels between the left border and the car
+; AnimationState is a Number
+; interpretation the number of clock ticks since the animation started
 
+(define (half x) (/ x 2))
 (define WIDTH-OF-WORLD 200)
  
 ;; WHEEL-RADIUS is the single point of control.
@@ -25,15 +26,16 @@
 (define BODY-WIDTH (* 8 WHEEL-RADIUS))
 (define BODY-HEIGHT (* WHEEL-RADIUS 3))
 
-(define BOTTOM-BODY (rectangle BODY-WIDTH (/ BODY-HEIGHT 2) "solid" "gold"))
+(define BOTTOM-BODY (rectangle BODY-WIDTH (half BODY-HEIGHT) "solid" "gold"))
 
-(define TOP-BODY (rectangle (* 6 WHEEL-RADIUS) (/ BODY-HEIGHT 2) "solid" "gold"))
+(define TOP-BODY (rectangle (* 6 WHEEL-RADIUS) (half BODY-HEIGHT) "solid" "gold"))
 
-(define CHASSIS (overlay/xy TOP-BODY 0 (- (/ BODY-HEIGHT 2) 1) BOTTOM-BODY))
 
-(define CAR (underlay/xy
+(define CHASSIS (overlay/xy TOP-BODY 0 (- (half BODY-HEIGHT) 1) BOTTOM-BODY))
+
+(define CAR (overlay/xy
              CHASSIS WHEEL-RADIUS
-             (- BODY-HEIGHT (/ WHEEL-RADIUS 2))
+             (- BODY-HEIGHT (half WHEEL-RADIUS))
              BOTH-WHEELS))
 
 (define CAR-WIDTH (image-width CAR))
@@ -46,35 +48,27 @@
 (define CANVAS-HEIGHT 50)
 (define CANVAS-WIDTH 200)
 
-(define BACKGROUND (place-image TREE (/ CANVAS-WIDTH 2)
+(define BACKGROUND (place-image TREE (half CANVAS-WIDTH)
                                 (image-height TREE)
                                 (empty-scene 200 50)))
 
 ; WorldState -> Image
 ; places the image of the car x pixels from the left margin of
 ; the BACKGROUND image 
-(define (render x)
-  (place-image CAR x (- CANVAS-HEIGHT
-                        (/ (image-height CAR) 2)) BACKGROUND))
+(define (render t)
+  (place-image CAR
+               (- (* t 3) (half (image-width CAR)))
+               (- CANVAS-HEIGHT (half (image-height CAR))) BACKGROUND))
  
 ; WorldState -> WorldState 
-; moves the car by three pixels every time the clock ticks
-; example: 
-(define (tock ws)
-  (+ ws 3))
-
-; Number -> Boolean
-; Checks if the CAR crosses the BACKGROUND.
-; Offset by half of the car is needed because
-; the loc is car's midpoint.
-(define (exceeds-canvas? loc)
-         (> loc (+ (/ CAR-WIDTH 2) CANVAS-WIDTH)))
+; Counts the number of clock ticks.
+(define (tock as)
+  (+ as 1))
 
 ; WorldState -> WorldState
 ; launches the program from some initial state 
-(define (main ws)
-   (big-bang ws
+(define (main as)
+   (big-bang as
      [on-tick tock]
-     [stop-when exceeds-canvas?]
      [to-draw render]))
 
