@@ -2,7 +2,7 @@
 
 (provide testable MEMBERS MEMBER-NAMES first-name lookup)
 
-(define IGNORES (list 5 6 7 8 10 12 18 19 23 24 25 26 28 29 32 34 35 38 41 43 44 45 46 47 48))
+(define IGNORES (list 5 6 7 8 10 12 18 19 23 24 25 26 28 29 32 34 35 38 41 43 44 45 46 47 48 49))
 
 (define (testable till)
   (filter (lambda (i) (not (member i IGNORES))) (range 1 till)))
