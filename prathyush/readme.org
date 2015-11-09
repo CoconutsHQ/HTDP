@@ -1,14 +1,14 @@
 * HTDP 2e
 
 #+BEGIN: clocktable :maxlevel 2 :scope subtree
-#+CAPTION: Clock summary at [2015-11-09 Mon 18:30]
+#+CAPTION: Clock summary at [2015-11-09 Mon 23:58]
 | Headline                    | Time   |      |
 |-----------------------------+--------+------|
-| *Total time*                | *7:00* |      |
+| *Total time*                | *7:30* |      |
 |-----------------------------+--------+------|
-| HTDP 2e                     | 7:00   |      |
+| HTDP 2e                     | 7:30   |      |
 | \_  Preface and Prologue    |        | 2:30 |
-| \_  Part I: Fixed Size Data |        | 4:30 |
+| \_  Part I: Fixed Size Data |        | 5:00 |
 #+END:
    
 ** Preface and Prologue
@@ -52,8 +52,10 @@ Reading
 
 *** Chapter 3: How to Design Programs
 
-
-    CLOCK: [2015-11-09 Mon 23:29]
+    CLOCK: [2015-11-09 Mon 23:59]
+    
+    CLOCK: [2015-11-09 Mon 23:29]--[2015-11-09 Mon 23:59] =>  0:30
+    Completed till 45.
 
     CLOCK: [2015-11-09 Mon 17:45]--[2015-11-09 Mon 18:15] =>  0:30
     Completed till 43.
