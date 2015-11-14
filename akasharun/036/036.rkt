@@ -2,8 +2,8 @@
 
 ; String -> String
 ; Shows the first character of string
-; (string-first "thenga") => "a"
-; (string-first "kola") => "a"
+; (string-first "thenga") => "t"
+; (string-first "kola") => "k"
 
 ; Template
 ; (define (string-first string)
