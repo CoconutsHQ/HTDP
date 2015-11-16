@@ -33,3 +33,14 @@
 (check-expect (render 100) (place-image CAR 100 Y-CAR BACKGROUND))
 (check-expect (render 150) (place-image CAR 150 Y-CAR BACKGROUND))
 (check-expect (render 200) (place-image CAR 200 Y-CAR BACKGROUND))
+
+; WorldState -> WorldState 
+; moves the car by three pixels every time the clock ticks
+; example: 
+; given: 20, expect 23
+; given: 78, expect 81
+(define (tock ws)
+  (+ ws 3))
+
+(check-expect (tock 20) 23)
+(check-expect (tock 78) 81)
