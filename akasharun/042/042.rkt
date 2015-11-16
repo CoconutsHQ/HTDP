@@ -1,8 +1,5 @@
 #lang racket
 
-; WorldState -> Image
-; places the car into a scene according to the given world state
-
 (require 2htdp/image)
 
 (define WHEEL-RADIUS 6)
@@ -23,6 +20,12 @@
              BODY))
 (define BACKGROUND (empty-scene 400 30))
 (define Y-CAR (- 30 (/ (image-height CAR) 2)))
+
+; WorldState is a Number
+; interpretation the number of pixels between the left border and the car
+
+; WorldState -> Image
+; places the car into a scene according to the given world state
 (define (render ws)
   (place-image CAR ws Y-CAR BACKGROUND))
 
