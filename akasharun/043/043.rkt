@@ -1,10 +1,4 @@
-;; The first three lines of this file were inserted by DrRacket. They record metadata
-;; about the language level of this file in a form that our tools can easily process.
-#reader(lib "htdp-beginner-reader.ss" "lang")((modname |043|) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
-
-
-; WorldState -> Image
-; places the car into a scene according to the given world state
+#lang racket
 
 (require 2htdp/image)
 (require 2htdp/universe)
@@ -35,18 +29,50 @@
            TREE))
 (define BACKGROUND (empty-scene 400 80))
 (define Y-CAR (- 80 (/ (image-height CAR) 2)))
+
+; WorldState is a Number
+; interpretation the number of pixels between the left border and the car
+
+; WorldState -> Image
+; places the car into a scene according to the given world state
 (define (render ws)
  (overlay/align/offset "middle" "bottom"
   TREE-SET
   -100 0
   (place-image CAR ws Y-CAR BACKGROUND)))
+
+(check-expect (render 50) (overlay/align/offset "middle" "bottom"
+  TREE-SET
+  -100 0
+  (place-image CAR 50 Y-CAR BACKGROUND)))
+(check-expect (render 100) (overlay/align/offset "middle" "bottom"
+  TREE-SET
+  -100 0
+  (place-image CAR 100 Y-CAR BACKGROUND)))
+(check-expect (render 150) (overlay/align/offset "middle" "bottom"
+  TREE-SET
+  -100 0
+  (place-image CAR 150 Y-CAR BACKGROUND)))
+(check-expect (render 200) (overlay/align/offset "middle" "bottom"
+  TREE-SET
+  -100 0
+  (place-image CAR 200 Y-CAR BACKGROUND)))
+
+; WorldState -> Boolean
+; checks whether the given world state is within a range
 (define (end? n)
   (>= n 400))
+
+(check-expect (end? 50) (>= 50 400))
+(check-expect (end? 100) (>= 100 400))
+(check-expect (end? 150) (>= 150 400))
+(check-expect (end? 200) (>= 200 400))
 
 (big-bang 0
           [to-draw render]
           [on-tick add1]
           [stop-when end?])
+
        
            
 
