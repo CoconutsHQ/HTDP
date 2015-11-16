@@ -1,3 +1,6 @@
+;; The first three lines of this file were inserted by DrRacket. They record metadata
+;; about the language level of this file in a form that our tools can easily process.
+#reader(lib "htdp-beginner-reader.ss" "lang")((modname |043|) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
 #lang racket
 
 (require 2htdp/image)
@@ -31,7 +34,7 @@
 (define Y-CAR (- 80 (/ (image-height CAR) 2)))
 
 ; WorldState is a Number
-; interpretation the number of pixels between the left border and the car
+; interpretation the number of pixels between the left border and  right-most edge of the car
 
 ; WorldState -> Image
 ; places the car into a scene according to the given world state
@@ -58,10 +61,21 @@
   -100 0
   (place-image CAR 200 Y-CAR BACKGROUND)))
 
+; WorldState -> WorldState 
+; moves the car by three pixels every time the clock ticks
+; example: 
+; given: 20, expect 23
+; given: 78, expect 81
+(define (tock ws)
+  (+ ws 3))
+
+(check-expect (tock 20) 23)
+(check-expect (tock 78) 81)
+
 ; WorldState -> Boolean
 ; checks whether the given world state is within a range
 (define (end? n)
-  (>= n 400))
+  (>= n 450))
 
 (check-expect (end? 50) (>= 50 400))
 (check-expect (end? 100) (>= 100 400))
@@ -70,7 +84,7 @@
 
 (big-bang 0
           [to-draw render]
-          [on-tick add1]
+          [on-tick tock]
           [stop-when end?])
 
        
