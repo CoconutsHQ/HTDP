@@ -2,7 +2,6 @@
 ;; about the language level of this file in a form that our tools can easily process.
 #reader(lib "htdp-beginner-reader.ss" "lang")((modname |043|) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
 #lang racket
-
 (require 2htdp/image)
 (require 2htdp/universe)
 
@@ -34,7 +33,7 @@
 (define Y-CAR (- 80 (/ (image-height CAR) 2)))
 
 ; WorldState is a Number
-; interpretation the number of pixels between the left border and  right-most edge of the car
+; interpretation the number of pixels between the left border and the car
 
 ; WorldState -> Image
 ; places the car into a scene according to the given world state
