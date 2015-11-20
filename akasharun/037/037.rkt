@@ -1,5 +1,7 @@
 #lang racket
 
+(require "../../bsl.rkt")
+
 ; String -> String
 ; Shows the last character of string
 ; (string-first "thenga") => "a"
