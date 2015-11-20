@@ -1,8 +1,11 @@
 #lang racket
 (require 2htdp/batch-io)
 
+<<<<<<< HEAD:marks.rkt
+=======
 (require "utils.rkt")
 
+>>>>>>> 7b188e45783db379e4062e3d0a1c3d6b7817d9c6:apps/marks.rkt
 ; Questions
 
 (define (read-rater)
@@ -102,10 +105,21 @@
 (number->string (check-within-limits (string->number (read-line)) limit)))
 
 
+; Padding
+(define (pad n)
+  (cond
+    [(= (string-length n) 1) (string-append "00" n)]
+    [(= (string-length n) 2) (string-append "0" n)]
+    [else n]))
+
 ; File Save Path
 
 (define (ex-file author exercise rater)
+<<<<<<< HEAD:marks.rkt
+  (string-append author "/" (pad exercise) "/" rater ".rkt"))
+=======
   (string-append "../" author "/" (pad3 exercise) "/" rater ".rkt"))
+>>>>>>> 7b188e45783db379e4062e3d0a1c3d6b7817d9c6:apps/marks.rkt
 
 
 ; Save Content To A File
