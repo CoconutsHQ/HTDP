@@ -1,8 +1,6 @@
 #lang racket
 (require 2htdp/batch-io)
 
-(require "tester/utils.rkt")
-
 ; Questions
 
 (define (read-rater)
@@ -101,10 +99,17 @@
 (number->string (check-within-limits (string->number (read-line)) limit)))
 
 
+; Padding
+(define (pad n)
+  (cond
+    [(= (string-length n) 1) (string-append "00" n)]
+    [(= (string-length n) 2) (string-append "0" n)]
+    [else n]))
+
 ; File Save Path
 
 (define (ex-file author exercise rater)
-  (string-append author "/" (pad3 exercise) "/" rater ".rkt"))
+  (string-append author "/" (pad exercise) "/" rater ".rkt"))
 
 
 ; Save Content To A File
