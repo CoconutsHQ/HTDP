@@ -1,5 +1,5 @@
 #lang racket
-#lang racket
+
 (define clarity 5)
 (define simplicity 3)
 (define cleverness 0)
