@@ -76,6 +76,9 @@
          (per-user-table headers ids uniform-results agg)
          (net-score net (* (length (filter every-number? results)) 10)))))
 
+(define (obj-report author)
+  (display (obj-table author)))
+
 ; No need to uniformize.
 (define (sub-table author)
   (let* ([ids (all-done author)]
@@ -88,6 +91,9 @@
      (per-user-table headers ids results agg)
      (net-score net (* (length results) 10)))))
 
+(define (sub-report author)
+  (display (sub-table author)))
+
 (define (rtg-table author)
   (let* ([ids (all-done author)]
          [results (ratings-status author ids)]
@@ -98,6 +104,9 @@
      (h1 (string-append (first-name author) " (Ratings)"))
      (per-user-table headers ids results agg)
      (net-score net (* (length results) 10)))))
+
+(define (rtg-report author)
+  (display (rtg-table author)))
 
 (define (sum-all results)
   (map sum-list results))
