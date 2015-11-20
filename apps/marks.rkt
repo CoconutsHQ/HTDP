@@ -54,6 +54,7 @@
   (or (string=? in "akasharun")
       (string=? in "akash")
       (string=? in "ash")))
+
 (define (pranav? in)
   (or (string=? in "pranav")
       (string=? in "prnv")))
@@ -70,7 +71,7 @@
     ((pranav? in) "pranav")
     ((ash? in) "akasharun")
     ((saurabh? in) "saurabh")
-    (else "unknown")))
+    (else in)))
 
 
 ; Print a Question for Asking Marks
@@ -104,7 +105,7 @@
 ; File Save Path
 
 (define (ex-file author exercise rater)
-  (string-append author "/" (pad3 exercise) "/" rater ".rkt"))
+  (string-append "../" author "/" (pad3 exercise) "/" rater ".rkt"))
 
 
 ; Save Content To A File
@@ -115,8 +116,10 @@
                            "(define clarity " clarity ")\n"
                            "(define simplicity " simplicity ")\n"
                            "(define cleverness " cleverness ")\n"
-                           "(define feel " feel ")\n"             
-                           "(provide (clarity simplicity cleverness feel)")))
+                           "(define feel " feel ")\n"
+                           "(define result (list clarity simplicity cleverness feel))\n
+(provide result)")))
+                    
 
 
 ; Ask For A Question To Check Whether The Marks Need To Be Repeated
