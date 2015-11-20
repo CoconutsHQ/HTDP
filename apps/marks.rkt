@@ -115,8 +115,8 @@
             (string-append "#lang racket\n"
                            "(define clarity " clarity ")\n"
                            "(define simplicity " simplicity ")\n"
-                           "(define cleverness " cleverness ")\n"
                            "(define feel " feel ")\n"
+                           "(define cleverness " cleverness ")\n"
                            "(define result (list clarity simplicity feel cleverness))\n
 (provide result)")))
                     
@@ -147,8 +147,9 @@
          (read-exercise)
          (ask-marks "clarity" 5)
          (ask-marks "simplicity" 3)
+         (ask-marks "feel" 2)
          (ask-marks "cleverness" 1)
-         (ask-marks "feel" 2)))
+         ))
 
 
 ; Ask for an Exercise to repeat the marks on it
@@ -159,8 +160,8 @@
       (read-exercise)
       clarity
       simplicity
-      cleverness
-      feel))
+      feel
+      cleverness))
 
 (main)
 
