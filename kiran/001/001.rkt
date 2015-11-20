@@ -1,6 +1,6 @@
 #lang racket
-(define x 6)
-(define y 8)
+(define x 3)
+(define y 4)
 
 (define result 
 (list
