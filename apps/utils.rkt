@@ -105,7 +105,7 @@
     (if (< space-count 0) 0 space-count)))
 
 (define (str item)
-  (cond [(number? item) (number->string item)]
+  (cond [(number? item) (~r item #:precision 2)]
         [(symbol? item) (lookup item)]
                       [else item]))
 

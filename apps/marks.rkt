@@ -1,6 +1,11 @@
 #lang racket
 (require 2htdp/batch-io)
 
+<<<<<<< HEAD:marks.rkt
+=======
+(require "utils.rkt")
+
+>>>>>>> 7b188e45783db379e4062e3d0a1c3d6b7817d9c6:apps/marks.rkt
 ; Questions
 
 (define (read-rater)
@@ -52,6 +57,7 @@
   (or (string=? in "akasharun")
       (string=? in "akash")
       (string=? in "ash")))
+
 (define (pranav? in)
   (or (string=? in "pranav")
       (string=? in "prnv")))
@@ -68,7 +74,7 @@
     ((pranav? in) "pranav")
     ((ash? in) "akasharun")
     ((saurabh? in) "saurabh")
-    (else "unknown")))
+    (else in)))
 
 
 ; Print a Question for Asking Marks
@@ -109,7 +115,11 @@
 ; File Save Path
 
 (define (ex-file author exercise rater)
+<<<<<<< HEAD:marks.rkt
   (string-append author "/" (pad exercise) "/" rater ".rkt"))
+=======
+  (string-append "../" author "/" (pad3 exercise) "/" rater ".rkt"))
+>>>>>>> 7b188e45783db379e4062e3d0a1c3d6b7817d9c6:apps/marks.rkt
 
 
 ; Save Content To A File
@@ -119,9 +129,11 @@
             (string-append "#lang racket\n"
                            "(define clarity " clarity ")\n"
                            "(define simplicity " simplicity ")\n"
+                           "(define feel " feel ")\n"
                            "(define cleverness " cleverness ")\n"
-                           "(define feel " feel ")\n"             
-                           "(provide (clarity simplicity cleverness feel)")))
+                           "(define result (list clarity simplicity feel cleverness))\n
+(provide result)")))
+                    
 
 
 ; Ask For A Question To Check Whether The Marks Need To Be Repeated
@@ -149,8 +161,9 @@
          (read-exercise)
          (ask-marks "clarity" 5)
          (ask-marks "simplicity" 3)
+         (ask-marks "feel" 2)
          (ask-marks "cleverness" 1)
-         (ask-marks "feel" 2)))
+         ))
 
 
 ; Ask for an Exercise to repeat the marks on it
@@ -161,8 +174,8 @@
       (read-exercise)
       clarity
       simplicity
-      cleverness
-      feel))
+      feel
+      cleverness))
 
 (main)
 
