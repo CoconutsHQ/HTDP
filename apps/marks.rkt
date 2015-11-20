@@ -117,7 +117,7 @@
                            "(define simplicity " simplicity ")\n"
                            "(define cleverness " cleverness ")\n"
                            "(define feel " feel ")\n"
-                           "(define result (list clarity simplicity cleverness feel))\n
+                           "(define result (list clarity simplicity feel cleverness))\n
 (provide result)")))
                     
 
