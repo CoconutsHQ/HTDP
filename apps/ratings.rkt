@@ -6,14 +6,23 @@
 (define (expired? rating-file exercise-file)
   (apply < (map file-or-directory-modify-seconds (list rating-file exercise-file))))
 
+;; username username number -> boolean or symbol
+(define (process-rating rtg-file)
+ (let ([marks (dynamic-require rtg-file 'result (lambda () 'na))])
+   (cond
+     [(list? marks) (cond
+                      [(andmap number? marks)
+   (if (<= 0 (apply + marks) 11) 'done 'off-mark)]
+                      [else 'na])]
+     [else marks])))
+
 (define (rating-status author rater exercise)
   (let ([rtg-file (rating-file author rater exercise)]
         [exr-file (exercise-file author exercise)])
   (cond
     [(file-exists? rtg-file) (if (expired? rtg-file exr-file)
                       'expired
-                      (let ([marks (dynamic-require rtg-file 'marks (lambda () 'unmarked))])
-                        (if (<= 0 marks 10) 'done 'off-mark)))]
+                      (process-rating rtg-file))]
                           
     [else 'unevaluated])))
 

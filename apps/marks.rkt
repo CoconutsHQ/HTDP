@@ -1,11 +1,8 @@
 #lang racket
 (require 2htdp/batch-io)
 
-<<<<<<< HEAD:marks.rkt
-=======
 (require "utils.rkt")
 
->>>>>>> 7b188e45783db379e4062e3d0a1c3d6b7817d9c6:apps/marks.rkt
 ; Questions
 
 (define (read-rater)
@@ -115,11 +112,7 @@
 ; File Save Path
 
 (define (ex-file author exercise rater)
-<<<<<<< HEAD:marks.rkt
-  (string-append author "/" (pad exercise) "/" rater ".rkt"))
-=======
   (string-append "../" author "/" (pad3 exercise) "/" rater ".rkt"))
->>>>>>> 7b188e45783db379e4062e3d0a1c3d6b7817d9c6:apps/marks.rkt
 
 
 ; Save Content To A File
