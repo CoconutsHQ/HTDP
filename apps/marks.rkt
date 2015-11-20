@@ -1,7 +1,7 @@
 #lang racket
 (require 2htdp/batch-io)
 
-(require "tester/utils.rkt")
+(require "utils.rkt")
 
 ; Questions
 
