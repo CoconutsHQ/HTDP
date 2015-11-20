@@ -110,7 +110,7 @@
 
 ; Save Content To A File
 
-(define (write-answer author exercise rater clarity simplicity cleverness feel) 
+(define (write-answer author exercise rater clarity simplicity feel cleverness) 
 (write-file (ex-file author exercise rater)
             (string-append "#lang racket\n"
                            "(define clarity " clarity ")\n"
