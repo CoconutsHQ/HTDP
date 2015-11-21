@@ -28,50 +28,50 @@
            20 0
            TREE))
 (define BACKGROUND (empty-scene 400 80))
-(define Y-CAR (- 80 (/ (image-height CAR) 2)))
+(define Y-CAR (- 50 (/ (image-height CAR) 2)))
 
-; WorldState is a Number
-; interpretation the number of pixels between the left border and right-most edge of the car
+; AnimationState is a Number
+; interpretation the number of clock ticks since the animation started 
 
-; WorldState -> Image
-; places the car into a scene according to the given world state
-(define (render ws)
+; AnimationState -> Image
+; places the car into a scene according to the given animation state
+(define (render as)
  (overlay/align/offset "middle" "bottom"
   TREE-SET
   -100 0
-  (place-image/align CAR ws Y-CAR "right" "middle" BACKGROUND)))
+  (place-image/align CAR as (+ (* 5 (sin (/ as 30))) Y-CAR) "right" "middle" BACKGROUND)))
 
 (check-expect (render 50) (overlay/align/offset "middle" "bottom"
   TREE-SET
   -100 0
-  (place-image/align CAR 50 Y-CAR "right" "middle" BACKGROUND)))
+  (place-image/align CAR 50 (+ (* 5 (sin (/ 50 30))) Y-CAR) "right" "middle" BACKGROUND)))
 (check-expect (render 100) (overlay/align/offset "middle" "bottom"
   TREE-SET
   -100 0
-  (place-image/align CAR 100 Y-CAR "right" "middle" BACKGROUND)))
+  (place-image/align CAR 100 (+ (* 5 (sin (/ 100 30))) Y-CAR) "right" "middle" BACKGROUND)))
 
 (check-expect (render 150) (overlay/align/offset "middle" "bottom"
   TREE-SET
   -100 0
-  (place-image/align CAR 150 Y-CAR "right" "middle" BACKGROUND)))
+  (place-image/align CAR 150 (+ (* 5 (sin (/ 150 30))) Y-CAR) "right" "middle" BACKGROUND)))
 (check-expect (render 200) (overlay/align/offset "middle" "bottom"
   TREE-SET
   -100 0
-  (place-image/align CAR 200 Y-CAR "right" "middle" BACKGROUND)))
+  (place-image/align CAR 200 (+ (* 5 (sin (/ 200 30))) Y-CAR) "right" "middle" BACKGROUND)))
 
-; WorldState -> WorldState 
-; moves the car by three pixels every time the clock ticks
+; AnimationState -> AnimationState 
+; add 3 to the current clock tick
 ; example: 
 ; given: 20, expect 23
 ; given: 78, expect 81
-(define (tock ws)
-  (+ ws 3))
+(define (tock as)
+  (+ as 3))
 
 (check-expect (tock 20) 23)
 (check-expect (tock 78) 81)
 
-; WorldState -> Boolean
-; checks whether the given world state is within a range
+; AnimationState -> Boolean
+; checks whether the given animation state is within a specific range
 (define (end? n)
   (>= n 450))
 
