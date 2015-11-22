@@ -32,11 +32,12 @@
 (check-expect (show 150) (rocket 150))
 (define (show x)
   (cond
-    [(or (string? x) (>= x 0)) (rocket x)]
+    [(string? x) (rocket x)]
     [(<= -3 x -1)
      (place-image (text (number->string x) 20 "red")
                   10 (* 3/4 WIDTH)
-                  (rocket x))]))
+                  (rocket x))]
+    [(>= x 0) (rocket x)]))
     
 ; LRCD -> Image
 ; place the image of a rocket into the scene according to the given world state
