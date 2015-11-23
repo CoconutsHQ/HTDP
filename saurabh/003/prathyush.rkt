@@ -1,12 +1,8 @@
 #lang racket
-
 (define clarity 5)
-
-;; substring doesn't necessarily require
-;; string-length calculation.
-(define simplicity 1)
-(define cleverness 0)
+(define simplicity 3)
 (define feel 2)
-(define marks (+ clarity simplicity cleverness feel))
+(define cleverness 0)
+(define result (list clarity simplicity feel cleverness))
 
-(provide marks)
+(provide result)
