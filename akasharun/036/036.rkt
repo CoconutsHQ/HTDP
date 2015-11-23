@@ -1,5 +1,7 @@
 #lang racket
 
+(require "../../bsl.rkt")
+
 ; String -> String
 ; Shows the first character of string
 ; (string-first "thenga") => "t"

@@ -32,9 +32,9 @@
 
 (define (net-score achieved achievable)
   (string-append "You have achieved: "
-                 (number->string achieved)
+                 (~r achieved #:precision '(= 2))
                  "/"
-     (number->string achievable) " marks"))
+     (~r achievable #:precision '(= 2)) " marks"))
 
 (define (every-number? row)
   (andmap number? row))
@@ -76,13 +76,23 @@
          (per-user-table headers ids uniform-results agg)
          (net-score net (* (length (filter every-number? results)) 10)))))
 
-(define (obj-report author)
-  (display (obj-table author)))
+(define (transform-rating r)
+  (cond
+    [(list? r) (sum-list r)]
+    [else r]))
 
+(define (process-ratings r)
+  (map transform-rating r))
+
+; rating : symbol or (list simplicity clarity feel cleverness) 
+; (list (list rating)) -> "(list (list rating-string))"
+(define (comprehend-ratings results)
+  (map process-ratings results))
+  
 ; No need to uniformize.
 (define (sub-table author)
   (let* ([ids (all-done author)]
-         [results (ratings author ids)]
+         [results (comprehend-ratings (ratings author ids))]
          [headers (per-user-header (map first-name MEMBERS) "Average")]
          [agg (avg-rows results)]
          [net (sum-list agg)])
@@ -90,9 +100,6 @@
      (h1 (string-append (first-name author) " (Subjective)"))
      (per-user-table headers ids results agg)
      (net-score net (* (length results) 10)))))
-
-(define (sub-report author)
-  (display (sub-table author)))
 
 (define (rtg-table author)
   (let* ([ids (all-done author)]
@@ -104,9 +111,6 @@
      (h1 (string-append (first-name author) " (Ratings)"))
      (per-user-table headers ids results agg)
      (net-score net (* (length results) 10)))))
-
-(define (rtg-report author)
-  (display (rtg-table author)))
 
 (define (sum-all results)
   (map sum-list results))
@@ -149,7 +153,7 @@
 (define (single-user author)
   (let ([ids MIN-DONE])
     (list (sum-list (sum-rows (obj-test-results author ids)))
-    (sum-list (avg-rows (ratings author ids)))
+    (sum-list (avg-rows (comprehend-ratings (ratings author ids))))
     (sum-list (assign-marks (ratings-status author ids))))))
 
 (define (sort-points l)
@@ -169,7 +173,7 @@
   (align
    (cons headers 
         (add-prathyush
-         (insert-right (insert-left results names) agg))) '(left right))))
+         (sort-points (insert-right (insert-left results names) agg)))) '(left right))))
 
 (define (leaderboard)
   (report
@@ -179,3 +183,10 @@
 
 (define (export-leaderboard)
   (write! "../readme.md" (leaderboard)))
+
+(provide obj-table sub-table rtg-table all-table
+         export-obj
+         export-sub
+         export-rtg
+         export-all
+         leaderboard)

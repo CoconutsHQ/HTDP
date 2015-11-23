@@ -1,27 +1,27 @@
-;#lang racket
+#lang racket
 
 ;; TODOS
 ;; Sorting of names
 
-(require "utils.rkt")
-(require "subjective.rkt")
+(require "tables.rkt")
 
+(define (report f author)
+  (display (f author)))
 
-(define (objective-marks results)
-(count (lambda (x) (equal? x #true)) results))
+(define (obj-report author)
+  (report obj-table author))
 
+(define (sub-report author)
+  (report sub-table author))
 
-;; A person's mark for each exercise is:
-;; Objective + Subjective + Rating for Others
-;; Objective will be 10 marks per test.
-;; Subjective will be 10 marks overall:
-;; Clarity (Variables, Comments) : 4
-;; Simplicity : 2
-;; Cleverness : 2
-;; Feel : 2
-;; Ratings will be granted 5/headcount marks
-(display
-(string-join
-(list (h1 "HTDP Study Group")
-      (h2 "Leaderboard"))
-"\n"))
+(define (rtg-report author)
+  (report rtg-table author))
+
+(define (all-report author)
+  (report all-table author))
+
+(define (save-reports author)
+  (export-obj author)
+  (export-sub author)
+  (export-rtg author)
+  (export-all author))

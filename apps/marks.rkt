@@ -102,6 +102,13 @@
 (number->string (check-within-limits (string->number (read-line)) limit)))
 
 
+; Padding
+(define (pad n)
+  (cond
+    [(= (string-length n) 1) (string-append "00" n)]
+    [(= (string-length n) 2) (string-append "0" n)]
+    [else n]))
+
 ; File Save Path
 
 (define (ex-file author exercise rater)
@@ -110,7 +117,7 @@
 
 ; Save Content To A File
 
-(define (write-answer author exercise rater clarity simplicity cleverness feel) 
+(define (write-answer author exercise rater clarity simplicity feel cleverness) 
 (write-file (ex-file author exercise rater)
             (string-append "#lang racket\n"
                            "(define clarity " clarity ")\n"
