@@ -189,4 +189,5 @@
          export-sub
          export-rtg
          export-all
-         leaderboard)
+         leaderboard
+         export-leaderboard)
