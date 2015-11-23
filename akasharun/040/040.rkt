@@ -11,7 +11,7 @@
 (define (string-last string)
   (substring string 0 (- (string-length string) 1)))
 
-(define result (list (string-last))
+(define result (list string-last))
 (provide result)
 
 
