@@ -184,4 +184,9 @@
 (define (export-leaderboard)
   (write! "../readme.md" (leaderboard)))
 
-(provide obj-table sub-table rtg-table leaderboard)
+(provide obj-table sub-table rtg-table all-table
+         export-obj
+         export-sub
+         export-rtg
+         export-all
+         leaderboard)
