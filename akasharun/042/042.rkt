@@ -45,3 +45,6 @@
 
 (check-expect (tock 20) 23)
 (check-expect (tock 78) 81)
+
+(define result (list tock))
+(provide result)
