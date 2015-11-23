@@ -1,6 +1,7 @@
 #lang racket
 
 (require 2htdp/image)
+(require "../../bsl.rkt")
 
 (define WHEEL-RADIUS 6)
 (define WHEEL (overlay (circle (/ WHEEL-RADIUS 2) "solid" "white")
