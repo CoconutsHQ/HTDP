@@ -4,4 +4,6 @@ Dilshad (Objective)
 |:--|-----:|----:|
 |1  |10    |10   |
 |2  |10    |10   |
-You have achieved: 20.0/20 marks
+|3  |10    |10   |
+|4  |10    |10   |
+You have achieved: 40.00/40.00 marks

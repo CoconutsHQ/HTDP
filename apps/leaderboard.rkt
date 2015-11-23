@@ -16,3 +16,12 @@
 
 (define (rtg-report author)
   (report rtg-table author))
+
+(define (all-report author)
+  (report all-table author))
+
+(define (save-reports author)
+  (export-obj author)
+  (export-sub author)
+  (export-rtg author)
+  (export-all author))
