@@ -6,4 +6,5 @@ Dilshad (Ratings)
 |2  |:+1: |:x:   |:x:      |:x:    |:x:    |:x:   |1.67   |
 |3  |:x:  |:x:   |:x:      |:x:    |:x:    |:x:   |0      |
 |4  |:x:  |:x:   |:x:      |:x:    |:x:    |:x:   |0      |
-You have achieved: 3.33/40.00 marks
+|9  |:x:  |:x:   |:x:      |:x:    |:x:    |:x:   |0      |
+You have achieved: 3.33/50.00 marks

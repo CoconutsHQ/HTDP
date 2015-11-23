@@ -4,4 +4,7 @@ Jithin (Objective)
 |:--|-----:|----:|
 |1  |10    |10   |
 |2  |10    |10   |
-You have achieved: 20.00/20.00 marks
+|3  |10    |10   |
+|4  |10    |10   |
+|9  |10    |10   |
+You have achieved: 50.00/50.00 marks
