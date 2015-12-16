@@ -21,9 +21,4 @@ Prathyush (Objective)
 |31 |10    |-     |10   |
 |33 |10    |-     |10   |
 |36 |10    |-     |10   |
-|37 |:interrobang:|-     |0    |
-|39 |:interrobang:|-     |0    |
-|40 |:interrobang:|-     |0    |
-|42 |:interrobang:|-     |0    |
-|53 |:interrobang:|-     |0    |
 You have achieved: 190.00/190.00 marks
