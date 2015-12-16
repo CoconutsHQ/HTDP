@@ -2,9 +2,10 @@ Leaderboard
 ===========
 |Member    |Objective|Subjective|Ratings|Total|
 |:---------|--------:|---------:|------:|----:|
-|Dilshad   |50       |50        |3.33   |103.33|
-|Jithin    |50       |50        |3.33   |103.33|
-|Akash     |50       |50        |0      |100  |
-|Pranav    |50       |50        |0      |100  |
-|Saurabh   |50       |50        |0      |100  |
-|Prathyush |50       |20        |45     |115  |
+|Dilshad   |30       |30        |30     |90   |
+|Jithin    |30       |30        |30     |90   |
+|Kiran     |30       |30.2      |25.71  |85.91|
+|Akash     |30       |30        |25.71  |85.71|
+|Pranav    |30       |30        |0      |60   |
+|Saurabh   |30       |30        |0      |60   |
+|Prathyush |30       |29.75     |27.14  |86.89|
