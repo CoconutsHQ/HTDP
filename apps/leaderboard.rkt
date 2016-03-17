@@ -1,4 +1,4 @@
-#lang racket
+#lang racket/gui
 
 ;; TODOS
 ;; Sorting of names

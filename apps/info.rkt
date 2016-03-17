@@ -10,7 +10,7 @@
 (define MEMBERS
   (list "akasharun" "pranav" "prathyush" "saurabh" "dilshad"
         "jithin" 
-        ;"kiran"
+        "kiran"
         ))
 
 (define MEMBER-NAMES
@@ -20,7 +20,7 @@
         (cons "saurabh" "Saurabh Subhash")
         (cons "jithin" "Jithin Suresh")
         (cons "dilshad" "Dilshad CE")
-       ; (cons "kiran" "Kiran AS")
+        (cons "kiran" "Kiran AS")
   ))
 
 (define (first-name i)

@@ -1,7 +1,4 @@
-;; The first three lines of this file were inserted by DrRacket. They record metadata
-;; about the language level of this file in a form that our tools can easily process.
-#reader(lib "htdp-beginner-reader.ss" "lang")((modname |058|) (read-case-sensitive #t) (teachpacks ()) (htdp-settings #(#t constructor repeating-decimal #f #t none #f () #f)))
-
+#lang racket
 
 (require 2htdp/image)
 (require 2htdp/universe)
@@ -53,7 +50,7 @@
           (place-image ROCKET X-ROCKET (- HEIGHT ROCKET-CENTER) BACKG)
           x)]
     [(<= -3 x -1) (place-image ROCKET X-ROCKET (- HEIGHT ROCKET-CENTER) BACKG)]
-    [else (place-image ROCKET X-ROCKET (- x ROCKET-CENTER) BACKG)]))
+    [(>= x 0) (place-image ROCKET X-ROCKET (- x ROCKET-CENTER) BACKG)]))
 
 ; LRCD KeyEvent -> LRCD
 ; starts the count-down when space bar is pressed, 
@@ -79,14 +76,14 @@
     [(<= -3 x -1) (if (= x -1) HEIGHT (+ x 1))]
     [(>= x 0) (- x YDELTA)]))
 
-; LRCD -> LRCD
+; LRCD -> Boolean
 ; determine whether the program stops
 (define (end? x)
   (cond
-    [(string? x) x]
-    [(<= -3 x -1) x]
-    [
-  (= HEIGHT x))
+    [(string? x) #false]
+    [(<= -3 x -1) #false]
+    [(> x 0) #false]
+    [(= x 0) #true]))
 
 ; LRCD -> LRCD
 (define (main2 s)
