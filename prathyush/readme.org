@@ -51,6 +51,7 @@ Reading
     CLOCK: [2015-10-29 Thu 00:50]--[2015-10-29 Thu 01:20] =>  0:30
 
 *** Chapter 3: How to Design Programs
+    49 is a recommended exercise to be solved.
 
     49 is a recommended exercise to be solved.
 
